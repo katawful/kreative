@@ -49,4 +49,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 Aniseed is provided into the public domain, and free to use for integration under the [Unlicense](https://unlicense.org/) license. [See](https://github.com/Olical/aniseed) the full project for full licensing details.
 
-Macros shipped in `lua/katdotnvim/katcros-fnl` is provided under the GPL v3 license. [See](https://github.com/katawful/katcros-fnl).
+Macros shipped in `lua/kreative/katcros-fnl` is provided under the GPL v3 license. [See](https://github.com/katawful/katcros-fnl).
