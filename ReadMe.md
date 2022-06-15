@@ -1,4 +1,7 @@
 # Kreative - A Neovim colorscheme backend
+
+# INCOMPLETE - DO NOT USE
+
 Kreative is a colorscheme backend that manages all of the complicated theming and color manipulation for you. All you need to provide is a set of colors, Kreative will do the rest.
 
 Features:
