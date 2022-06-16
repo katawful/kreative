@@ -112,6 +112,7 @@ The following are supported currently:
 | alacritty | "alacritty" |
 | URxvt | "rxvt-unicode", "urxvt" |
 | konsole | "konsole" |
+
 An appropriate file will be made at your current working directory using your background settings. Only a theme made through Kreative can generate a terminal theme, any other theme will present an error.
 
 # License
