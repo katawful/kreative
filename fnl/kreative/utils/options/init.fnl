@@ -7,7 +7,7 @@
 (defn default* [] "Set all plugin options to default by force"
       (let- :g :kat_nvim_commentStyle :italic)
       (let- :g :kat_nvim_stupidFeatures false)
-      (let- :g :kat_nvim_integrations [:vim :vimwiki :markdown])
+      (let- :g :kat_nvim_filetypes [:vim :vimwiki :markdown])
       (let- :g :kat_nvim_integrations
             [:treesitter
              :lsp
@@ -20,28 +20,34 @@
       (let- :g :kat_nvim_compile_enable false))
 
 ;; FN -- check global variables and set to default values if needed
-(defn default []
-      "Check global variables and set to default if no value was set"
-      (if (= (vim.fn.exists :kat_nvim_commentStyle) 0)
-          (let- :g :kat_nvim_commentStyle :italic))
-      (if (= (vim.fn.exists :kat_nvim_compile_enable) 0)
-          (let- :g :kat_nvim_compile_enable false))
-      (if (= (vim.fn.exists :kat_nvim_integrations) 0)
-          (let- :g :kat_nvim_integrations
-                [:treesitter
-                 :lsp
-                 :ts_rainbow
-                 :indent_blankline
-                 :startify
-                 :coc
-                 :cmp
-                 :fugitive]))
-      (if (= (vim.fn.exists :kat_nvim_max_version) 0)
-          (let- :g :kat_nvim_max_version
-                (if (= (vim.fn.has :nvim-0.7) 0) :0.6 :0.7)))
-      (if (= (vim.fn.exists :kat_nvim_filetype) 0)
-          (let- :g :kat_nvim_filetype [:vim :vimwiki :markdown]))
-      (if (= (vim.fn.exists :kat_nvim_stupidFeatures) 0)
-          (let- :g :kat_nvim_stupidFeatures false))
-      (if (= (vim.fn.exists :kat_nvim_dontRender) 0)
-          (let- :g :kat_nvim_dontRender false)))
+(defn default [opts] "Set options table from color file to default and output"
+  (let [output {}]
+    (if (?. opts :integrations)
+      (set output.integrations opts.integrations)
+      (set output.integrations
+           [
+            :treesitter
+            :lsp
+            :ts_rainbow
+            :indent_blankline
+            :startify
+            :coc
+            :cmp
+            :fugitive]))
+    (if (?. opts :filetypes)
+      (set output.filetypes opts.filetypes)
+      (set output.filetypes
+           [
+            :vim
+            :vimwiki
+            :markdown]))
+    (if (?. opts :comment_style)
+      (set output.comment_style opts.comment_style)
+      (set output.comment_style
+           [
+            "italic"]))
+    (if (?. opts :render)
+      (set output.render opts.render)
+      (set output.render true))
+    (set output.version (if (= (vim.fn.has :nvim-0.7) 0) :0.6 :0.7))
+    output))
