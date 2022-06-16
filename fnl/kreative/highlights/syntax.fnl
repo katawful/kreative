@@ -28,7 +28,7 @@
                        :bg :SKIP
                        :ctermfg (. (groups.selectionBG) 3)
                        :ctermbg :SKIP
-                       (. vim.g.kat_nvim_commentStyle) true}
+                       (. main.configs.comment_style 1) true}
                       {:group :Constant
                        :fg (. (groups.fillBG) 1)
                        :bg :SKIP
@@ -259,7 +259,7 @@
                        :bg :SKIP
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
-                       (. vim.g.kat_nvim_commentStyle) true}
+                       (. main.configs.comment_style 1) true}
                       {:group :Debug
                        :fg (ucolors.blend (. (special) 1) (. (groups.auxBG) 1)
                                           0.2)

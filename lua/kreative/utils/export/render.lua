@@ -11,9 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local a, groups, message, _, _0 = autoload("kreative.aniseed.core"), autoload("kreative.highlights.main"), autoload("kreative.utils.message.init"), nil, nil
+local a, groups, main, message, _, _0 = autoload("kreative.aniseed.core"), autoload("kreative.highlights.main"), autoload("kreative.main"), autoload("kreative.utils.message.init"), nil, nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["groups"] = groups
+_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
@@ -31,7 +32,7 @@ local function get_groups(source)
 end
 _2amodule_locals_2a["get-groups"] = get_groups
 local function internal_string(source)
-  local old_version = vim.g.kat_nvim_max_version
+  local old_version = main.configs.version
   local output_string = ""
   local _3_
   do
@@ -43,9 +44,9 @@ local function internal_string(source)
     _3_ = t_2_
   end
   if (_3_ ~= nil) then
-    vim.g["kat_nvim_max_version"] = source.version
-    output_string = string.format("(if (= vim.g.kat_nvim_max_version \"%s\")\n      (values\n        %s\n        )", source.version, get_groups(source))
-    do end (vim.g)["kat_nvim_max_version"] = old_version
+    main.configs.version = source.version
+    output_string = string.format("(if (= main.config.version \"%s\")\n      (values\n        %s\n        )", source.version, get_groups(source))
+    main.configs.version = old_version
     output_string = string.format("%s\n      (values\n        %s\n        ))", output_string, get_groups(source))
     output_string = get_groups(source)
   else
@@ -74,7 +75,7 @@ local function build_string__3efile_21(source, color, back)
   local shade = back
   local output_string
   if (source0.types == "none") then
-    output_string = string.format("(module kreative.exported.%s-%s-%s\n  {autoload {run kreative.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.name, shade, contrast, internal_string(source0))
+    output_string = string.format("(module kreative.exported.%s-%s-%s\n  {autoload {run kreative.utils.highlight.run\n             main kreative.main}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.name, shade, contrast, internal_string(source0))
   else
     output_string = string.format("(module kreative.exported.%s.%s-%s-%s\n  {autoload {run kreative.utils.highlight.run}})\n(defn render []\n [%s])\n(defn init [] (run.highlight$<-table (render)))", source0.types, source0.name, shade, contrast, internal_string(source0))
   end
@@ -88,9 +89,9 @@ local function start_group()
   local colors = {{light = "kat.nwim"}, {light = "kat.nvim"}, {dark = "kat.nwim"}, {dark = "kat.nvim"}}
   local old_color = vim.g.colors_name
   local old_background = vim.o.background
-  local old_dontRender = vim.g.kat_nvim_dontRender
-  local old_version = vim.g.kat_nvim_max_version
-  vim.g["kat_nvim_dontRender"] = true
+  local old_dontRender = main.configs.render
+  local old_version = main.configs.version
+  main.configs.render = true
   for _1, v in ipairs(colors) do
     for back, color in pairs(v) do
       vim.g["colors_name"] = color
@@ -100,17 +101,17 @@ local function start_group()
       end
     end
   end
-  vim.g["kat_nvim_max_version"] = old_version
+  main.configs.version = old_version
   vim.g["colors_name"] = old_color
   vim.api.nvim_set_option("background", old_background)
-  do end (vim.g)["kat_nvim_dontRender"] = old_dontRender
+  main.configs.render = old_dontRender
   return nil
 end
 _2amodule_locals_2a["start-group"] = start_group
 local function init()
   if (vim.g.kat_nvim_compile_enable == true) then
     message["warn$"](message["<-table"]("utils.export.render", "compilation-dev"))
-    if (vim.g.kat_nvim_max_version == "0.6") then
+    if (main.configs.version == "0.6") then
       return vim.api.nvim_command("command! -nargs=0 KatNvimRenderFiles lua require('kreative.utils.export.render').start_group()")
     else
       local function _9_()

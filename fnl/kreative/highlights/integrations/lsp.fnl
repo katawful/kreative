@@ -1,5 +1,6 @@
 (module kreative.highlights.integrations.lsp
         {autoload {ucolors kreative.utils.highlight.utils
+                   main kreative.main
                    colors kreative.color
                    syntax kreative.highlights.syntax
                    run kreative.utils.highlight.run
@@ -34,7 +35,7 @@
         :ctermfg (. (groups.selectionBG) 2)
         :ctermbg :SKIP}
        (fn []
-         (if (= vim.g.kat_nvim_max_version :0.6)
+         (if (= main.configs.version :0.6)
              (values {:group :LspDiagnosticsDefaultError
                       :fg (. (groups.errorBG) 1)
                       :bg :SKIP

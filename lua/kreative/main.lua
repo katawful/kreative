@@ -15,7 +15,8 @@ local options, _ = autoload("kreative.utils.options.init"), nil
 _2amodule_locals_2a["options"] = options
 _2amodule_locals_2a["_"] = _
 local function init(opts)
-  options.default()
+  local configs = options.default(opts)
+  do end (_2amodule_2a)["configs"] = configs
   if vim.g.colors_name then
     vim.cmd("highlight clear")
   else
@@ -48,21 +49,17 @@ local function init(opts)
     _7_ = t_6_
   end
   vim.g["colors_name"] = assert(_7_, "Please add a colors_name to your opts table")
-  if (vim.g.kat_nvim_dontRender == true) then
+  if (configs.render == true) then
     do end (require("kreative.highlights.main")).init()
     do end (require("kreative.highlights.syntax")).init()
     do end (require("kreative.highlights.terminal")).init()
-    if (vim.g.kat_nvim_stupidFeatures == true) then
-      do end (require("kreative.stupid")).stupidFunction()
-    else
-    end
     require("kreative.utils.export.init")
     do end (require("kreative.utils.export.render")).init()
-    for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+    for _0, v in ipairs(configs.integrations) do
       local output = ("kreative.highlights.integrations." .. v)
       require(output).init()
     end
-    for _0, v in pairs(vim.g.kat_nvim_filetype) do
+    for _0, v in pairs(configs.filetypes) do
       local output = ("kreative.highlights.filetype." .. v)
       require(output).init()
     end
@@ -71,17 +68,13 @@ local function init(opts)
     do end (require(("kreative.exported.main-" .. background .. "-" .. contrast))).init()
     do end (require(("kreative.exported.syntax-" .. background .. "-" .. contrast))).init()
     do end (require("kreative.highlights.terminal")).init()
-    if (vim.g.kat_nvim_stupidFeatures == true) then
-      do end (require("kreative.stupid")).stupidFunction()
-    else
-    end
     require("kreative.utils.export.init")
     do end (require("kreative.utils.export.render")).init()
-    for _0, v in ipairs(vim.g.kat_nvim_integrations) do
+    for _0, v in ipairs(configs.integrations) do
       local output = ("kreative.exported.integrations." .. v .. "-" .. background .. "-" .. contrast)
       require(output).init()
     end
-    for _0, v in pairs(vim.g.kat_nvim_filetype) do
+    for _0, v in pairs(configs.filetypes) do
       local output = ("kreative.exported.filetype." .. v .. "-" .. background .. "-" .. contrast)
       require(output).init()
     end
