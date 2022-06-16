@@ -1,22 +1,20 @@
 (module kreative.main
-        {autoload {colors kreative.color
+        {autoload {
                    options kreative.utils.options.init}
          require-macros [kreative.katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Main plugin interface
 
 ;; fnlfmt: skip
-(defn init [in-contrast] "Main plugin interface" ; define some defaults
+(defn init [opts] "Main plugin interface" ; define some defaults
       (options.default)
       (when vim.g.colors_name
         (vim.cmd "highlight clear"))
       (when (= (vim.fn.exists :syntax_on) 1)
-        (vim.cmd "syntax reset")) (def contrast in-contrast)
+        (vim.cmd "syntax reset"))
+      (def contrast (assert (?. opts :contrast) "Please add a contrast to your opts table"))
       (def background vim.o.background)
-      ; set g:colors_name for hard and soft themes
-      (if (= contrast :hard)
-          (let- :g :colors_name :kat.nvim)
-          (let- :g :colors_name :kat.nwim))
+      (let- :g :colors_name (assert (?. opts :colors_name) "Please add a colors_name to your opts table"))
       (if (= vim.g.kat_nvim_dontRender true) 
           ; do the dynamic path
           (do
