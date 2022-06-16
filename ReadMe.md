@@ -100,6 +100,9 @@ The rest of the options are optional, and simply present the defaults. For `inte
 There are 2 important function calls needed. The first is `require("kreative.color")["init-colors"](colors)`. This initializes Kreative with the colors you have picked.
 The second, `require("kreative.main").init(opts)` starts the colorscheme itself. Both functions should be passed their respective tables.
 
+## Plugins with Custom Color Options
+For plugins that need to be passed a custom colorscheme name, such as Lualine, use "kreative" as the string to use the colors from this theme.
+
 # Generation
 Currently, you can only generate terminal themes for your desired terminal:
 ```vim
