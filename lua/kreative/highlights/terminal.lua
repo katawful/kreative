@@ -19,31 +19,31 @@ _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 _2amodule_locals_2a["_"] = _
 local function init()
-  vim.g["terminal_color_0"] = (colors.init("background"))[1]
-  vim.g["terminal_color_1"] = (colors.init("normalColors")).red
-  vim.g["terminal_color_2"] = (colors.init("normalColors")).green
-  vim.g["terminal_color_3"] = (colors.init("normalColors")).orange
-  vim.g["terminal_color_4"] = (colors.init("normalColors")).blue
-  vim.g["terminal_color_5"] = (colors.init("normalColors")).pink
-  vim.g["terminal_color_6"] = (colors.init("normalColors")).purple
-  vim.g["terminal_color_7"] = (colors.init("foreground"))[1]
-  vim.g["terminal_color_8"] = (colors.init("background"))[2]
-  if (vim.o.background == "light") then
-    vim.g["terminal_color_9"] = ucolors.darken((colors.init("normalColors")).red, 0.2)
-    do end (vim.g)["terminal_color_10"] = ucolors.darken((colors.init("normalColors")).green, 0.2)
-    do end (vim.g)["terminal_color_11"] = ucolors.darken((colors.init("normalColors")).orange, 0.2)
-    do end (vim.g)["terminal_color_12"] = ucolors.darken((colors.init("normalColors")).blue, 0.2)
-    do end (vim.g)["terminal_color_13"] = ucolors.darken((colors.init("normalColors")).pink, 0.2)
-    do end (vim.g)["terminal_color_14"] = ucolors.darken((colors.init("normalColors")).purple, 0.2)
+  vim.g["terminal_color_0"] = colors.background()[1]
+  vim.g["terminal_color_1"] = (colors["normal-colors"]()).red
+  vim.g["terminal_color_2"] = (colors["normal-colors"]()).green
+  vim.g["terminal_color_3"] = (colors["normal-colors"]()).orange
+  vim.g["terminal_color_4"] = (colors["normal-colors"]()).blue
+  vim.g["terminal_color_5"] = (colors["normal-colors"]()).pink
+  vim.g["terminal_color_6"] = (colors["normal-colors"]()).purple
+  vim.g["terminal_color_7"] = colors.foreground()[1]
+  vim.g["terminal_color_8"] = colors.background()[2]
+  if (main.background == "light") then
+    vim.g["terminal_color_9"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
+    do end (vim.g)["terminal_color_10"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
+    do end (vim.g)["terminal_color_11"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
+    do end (vim.g)["terminal_color_12"] = ucolors.darken((colors["normal-colors"]()).blue, 0.2)
+    do end (vim.g)["terminal_color_13"] = ucolors.darken((colors["normal-colors"]()).pink, 0.2)
+    do end (vim.g)["terminal_color_14"] = ucolors.darken((colors["normal-colors"]()).purple, 0.2)
   else
-    vim.g["terminal_color_9"] = ucolors.brighten((colors.init("normalColors")).red, 0.2)
-    do end (vim.g)["terminal_color_10"] = ucolors.brighten((colors.init("normalColors")).green, 0.2)
-    do end (vim.g)["terminal_color_11"] = ucolors.brighten((colors.init("normalColors")).orange, 0.2)
-    do end (vim.g)["terminal_color_12"] = ucolors.brighten((colors.init("normalColors")).blue, 0.2)
-    do end (vim.g)["terminal_color_13"] = ucolors.brighten((colors.init("normalColors")).pink, 0.2)
-    do end (vim.g)["terminal_color_14"] = ucolors.brighten((colors.init("normalColors")).purple, 0.2)
+    vim.g["terminal_color_9"] = ucolors.brighten((colors["normal-colors"]()).red, 0.2)
+    do end (vim.g)["terminal_color_10"] = ucolors.brighten((colors["normal-colors"]()).green, 0.2)
+    do end (vim.g)["terminal_color_11"] = ucolors.brighten((colors["normal-colors"]()).orange, 0.2)
+    do end (vim.g)["terminal_color_12"] = ucolors.brighten((colors["normal-colors"]()).blue, 0.2)
+    do end (vim.g)["terminal_color_13"] = ucolors.brighten((colors["normal-colors"]()).pink, 0.2)
+    do end (vim.g)["terminal_color_14"] = ucolors.brighten((colors["normal-colors"]()).purple, 0.2)
   end
-  vim.g["terminal_color_15"] = (colors.init("foreground"))[2]
+  vim.g["terminal_color_15"] = colors.foreground()[2]
   return nil
 end
 _2amodule_2a["init"] = init
