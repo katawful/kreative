@@ -2,9 +2,12 @@
 
 default: deps compile test
 
+format:
+	scripts/fnlfmt.sh
+
 deps:
-	scripts/dep.sh Olical aniseed origin/master
-	scripts/dep.sh katawful katcros-fnl origin/main
+	deps/aniseed/scripts/dep.sh Olical aniseed origin/master
+	deps/aniseed/scripts/dep.sh katawful katcros-fnl origin/main
 
 compile:
 	rm -rf lua/kreative
