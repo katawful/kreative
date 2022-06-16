@@ -1,9 +1,9 @@
-local _2afile_2a = "fnl/lualine/themes/kat.fnl"
-local ucolors = require("katdotnvim.utils.highlight.utils")
-local colors = require("katdotnvim.color")
-local syntax = require("katdotnvim.highlights.syntax")
-local groups = require("katdotnvim.highlights.main")
-local main = require("katdotnvim.main")
+local _2afile_2a = "fnl/lualine/themes/kreative.fnl"
+local ucolors = require("kreative.utils.highlight.utils")
+local colors = require("kreative.color")
+local syntax = require("kreative.highlights.syntax")
+local groups = require("kreative.highlights.main")
+local main = require("kreative.main")
 local mainFG = groups.mainFG()[1]
 if ((vim.o.background == "dark") and (main.contrast == "soft")) then
   mainFG = ucolors.brighten(groups.mainFG()[1], 0.8)

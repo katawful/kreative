@@ -29,22 +29,22 @@ let s:kat = {}
 let g:lightline = {
       \ 'colorscheme': 'kat'
       \ }
-  let s:N1 = luaeval('require("katdotnvim.highlights.integrations.lightline").normalMode_a()')
-  let s:N2 = luaeval('require("katdotnvim.highlights.integrations.lightline").normalMode_b()')
-  let s:N3 = luaeval('require("katdotnvim.highlights.integrations.lightline").normalMode_c()')
-  let s:I1 = luaeval('require("katdotnvim.highlights.integrations.lightline").insertMode_a()')
-  let s:I2 = luaeval('require("katdotnvim.highlights.integrations.lightline").insertMode_b()')
-  let s:I3 = luaeval('require("katdotnvim.highlights.integrations.lightline").insertMode_c()')
-  let s:R1 = luaeval('require("katdotnvim.highlights.integrations.lightline").replaceMode_a()')
-  let s:R2 = luaeval('require("katdotnvim.highlights.integrations.lightline").replaceMode_b()')
-  let s:R3 = luaeval('require("katdotnvim.highlights.integrations.lightline").replaceMode_c()')
-  let s:V1 = luaeval('require("katdotnvim.highlights.integrations.lightline").visualMode_a()')
-  let s:V2 = luaeval('require("katdotnvim.highlights.integrations.lightline").visualMode_b()')
-  let s:V3 = luaeval('require("katdotnvim.highlights.integrations.lightline").visualMode_c()')
-  let s:IA = luaeval('require("katdotnvim.highlights.integrations.lightline").inactiveGroup()')
-  let s:T1 = luaeval('require("katdotnvim.highlights.integrations.lightline").terminalMode_a()')
-  let s:T2 = luaeval('require("katdotnvim.highlights.integrations.lightline").terminalMode_b()')
-  let s:T3 = luaeval('require("katdotnvim.highlights.integrations.lightline").terminalMode_c()')
+  let s:N1 = luaeval('require("kreative.highlights.integrations.lightline").normalMode_a()')
+  let s:N2 = luaeval('require("kreative.highlights.integrations.lightline").normalMode_b()')
+  let s:N3 = luaeval('require("kreative.highlights.integrations.lightline").normalMode_c()')
+  let s:I1 = luaeval('require("kreative.highlights.integrations.lightline").insertMode_a()')
+  let s:I2 = luaeval('require("kreative.highlights.integrations.lightline").insertMode_b()')
+  let s:I3 = luaeval('require("kreative.highlights.integrations.lightline").insertMode_c()')
+  let s:R1 = luaeval('require("kreative.highlights.integrations.lightline").replaceMode_a()')
+  let s:R2 = luaeval('require("kreative.highlights.integrations.lightline").replaceMode_b()')
+  let s:R3 = luaeval('require("kreative.highlights.integrations.lightline").replaceMode_c()')
+  let s:V1 = luaeval('require("kreative.highlights.integrations.lightline").visualMode_a()')
+  let s:V2 = luaeval('require("kreative.highlights.integrations.lightline").visualMode_b()')
+  let s:V3 = luaeval('require("kreative.highlights.integrations.lightline").visualMode_c()')
+  let s:IA = luaeval('require("kreative.highlights.integrations.lightline").inactiveGroup()')
+  let s:T1 = luaeval('require("kreative.highlights.integrations.lightline").terminalMode_a()')
+  let s:T2 = luaeval('require("kreative.highlights.integrations.lightline").terminalMode_b()')
+  let s:T3 = luaeval('require("kreative.highlights.integrations.lightline").terminalMode_c()')
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 

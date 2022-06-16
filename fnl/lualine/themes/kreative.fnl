@@ -1,8 +1,8 @@
-(local ucolors (require :katdotnvim.utils.highlight.utils))
-(local colors (require :katdotnvim.color))
-(local syntax (require :katdotnvim.highlights.syntax))
-(local groups (require :katdotnvim.highlights.main))
-(local main (require :katdotnvim.main))
+(local ucolors (require :kreative.utils.highlight.utils))
+(local colors (require :kreative.color))
+(local syntax (require :kreative.highlights.syntax))
+(local groups (require :kreative.highlights.main))
+(local main (require :kreative.main))
 (var mainFG (. (groups.mainFG) 1))
 
 (if (and (= vim.o.background :dark)
