@@ -23,8 +23,7 @@
                                                0.65)
                                 13]) output)
 
-(defn high-colors [] [
-                      (fn []
+(defn high-colors [] [(fn []
                         (let [hi-group {:group :Comment
                                         :fg (. (groups.meldBG) 1)
                                         :bg :SKIP
@@ -259,7 +258,8 @@
                        :bold true}
                       (fn []
                         (let [hi-group {:group :SpecialComment
-                                        :fg (ucolors.blend (. (special) 1) (. (groups.meldBG) 1)
+                                        :fg (ucolors.blend (. (special) 1)
+                                                           (. (groups.meldBG) 1)
                                                            0.2)
                                         :bg :SKIP
                                         :ctermfg (. (special) 2)
