@@ -6,7 +6,7 @@
                    main kreative.main}})
 
 (defn tabFG [] (var output "")
-      (if (and (= vim.o.background :dark) (= main.contrast :soft))
+      (if (and (= vim.o.background :dark) (= main.configs.contrast :soft))
           (do
             (set output (ucolors.brighten (. (groups.mainFG) 1) 0.8)))
           (do

@@ -74,14 +74,14 @@
 ;; FN -- Define a table of background colors based on the current theme
 (defn- def-back-colors [] "A table of background colors"
        (let [back (if (= vim.o.background :dark)
-                      (if (= main.contrast :soft)
+                      (if (= main.configs.contrast :soft)
                           [(ucolors.brighten dark-fore-back 0.1)
                            dark-fore-back
                            (ucolors.brighten dark-fore-back 0.3)
                            (ucolors.brighten dark-fore-back 0.5)
                            (ucolors.brighten dark-fore-back 0.7)
                            (ucolors.brighten dark-fore-back 0.9)]
-                          (or (= main.contrast :hard) (= main.contrast nil))
+                          (or (= main.configs.contrast :hard) (= main.configs.contrast nil))
                           [dark-fore-back
                            (ucolors.brighten dark-fore-back 0.1)
                            (ucolors.brighten dark-fore-back 0.3)
@@ -89,7 +89,7 @@
                            (ucolors.brighten dark-fore-back 0.7)
                            (ucolors.brighten dark-fore-back 0.9)])
                       (= vim.o.background :light)
-                      (if (= main.contrast :soft)
+                      (if (= main.configs.contrast :soft)
                           [(-> light-fore-back
                                (ucolors.darken 0.1)
                                (ucolors.saturation -0.5))
@@ -106,7 +106,7 @@
                            (-> light-fore-back
                                (ucolors.darken 0.9)
                                (ucolors.saturation -0.5))]
-                          (or (= main.contrast :hard) (= main.contrast nil))
+                          (or (= main.configs.contrast :hard) (= main.configs.contrast nil))
                           [light-fore-back
                            (-> light-fore-back
                                (ucolors.darken 0.1)
@@ -128,7 +128,7 @@
 ;; FN -- Define a table of background colors based on the current theme
 (defn- def-fore-colors [] "A table of foreground colors"
        (let [fore (if (= vim.o.background :dark)
-                      (if (= main.contrast :soft)
+                      (if (= main.configs.contrast :soft)
                           [(-> light-fore-back
                                (ucolors.darken 0.1)
                                (ucolors.saturation -0.5))
@@ -145,7 +145,7 @@
                            (-> light-fore-back
                                (ucolors.darken 0.9)
                                (ucolors.saturation -0.5))]
-                          (or (= main.contrast :hard) (= main.contrast nil))
+                          (or (= main.configs.contrast :hard) (= main.configs.contrast nil))
                           [light-fore-back
                            (-> light-fore-back
                                (ucolors.darken 0.1)
@@ -163,14 +163,14 @@
                                (ucolors.darken 0.9)
                                (ucolors.saturation -0.5))])
                       (= vim.o.background :light)
-                      (if (= main.contrast :soft)
+                      (if (= main.configs.contrast :soft)
                           [(ucolors.brighten dark-fore-back 0.1)
                            dark-fore-back
                            (ucolors.brighten dark-fore-back 0.3)
                            (ucolors.brighten dark-fore-back 0.5)
                            (ucolors.brighten dark-fore-back 0.7)
                            (ucolors.brighten dark-fore-back 0.9)]
-                          (or (= main.contrast :hard) (= main.contrast nil))
+                          (or (= main.configs.contrast :hard) (= main.configs.contrast nil))
                           [dark-fore-back
                            (ucolors.brighten dark-fore-back 0.1)
                            (ucolors.brighten dark-fore-back 0.3)

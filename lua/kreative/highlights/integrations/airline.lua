@@ -5,7 +5,7 @@ local syntax = require("kreative.highlights.syntax")
 local groups = require("kreative.highlights.main")
 local main = require("kreative.main")
 local mainFG = groups.mainFG()[1]
-if ((vim.o.background == "dark") and (main.contrast == "soft")) then
+if ((vim.o.background == "dark") and (main.configs.contrast == "soft")) then
   mainFG[1] = ucolors.brighten(groups.mainFG()[1], 0.8)
 else
 end

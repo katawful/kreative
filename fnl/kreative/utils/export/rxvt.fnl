@@ -21,7 +21,7 @@
                     "URxvt*background:" (. (groups.mainBG) 1)
                     ; :selection_foreground (. (groups.selectionFG) 1)
                     ; :selection_background (. (groups.selectionBG) 1)
-                    ; :contrast main.contrast
+                    ; :contrast main.configs.contrast
                     ; :shade vim.o.background
                     ; :cursor (. (. (groups.mainFG) 1) 1)
                     ; :cursor_text_color :background

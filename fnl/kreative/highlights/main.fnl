@@ -7,7 +7,7 @@
 ; define variables to use for generic uses
 ; each variable is actually a function that gets called so that they always update and work with Aniseed modules
 (defn mainFG [] (var output {})
-      (if (and (= vim.o.background :dark) (= main.contrast :soft))
+      (if (and (= vim.o.background :dark) (= main.configs.contrast :soft))
           (do
             (tset output 1 (ucolors.brighten (. (colors.foreground) 1) 0.8))
             (tset output 2 7))
@@ -177,7 +177,7 @@
        ; Tabline
        ; we need to make the dark soft font brighter to match dark hard tabline
        ; looks bad otherwise imo
-       (if (and (= vim.o.background :dark) (= main.contrast :soft))
+       (if (and (= vim.o.background :dark) (= main.configs.contrast :soft))
            (do
              (var color (ucolors.brighten (. (highlightFG) 1) 0))
              {:group :TabLine
