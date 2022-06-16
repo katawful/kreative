@@ -23,12 +23,16 @@
                                                0.65)
                                 13]) output)
 
-(defn high-colors [] [{:group :Comment
-                       :fg (. (groups.meldBG) 1)
-                       :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 3)
-                       :ctermbg :SKIP
-                       (. main.configs.comment_style 1) true}
+(defn high-colors [] [
+                      (fn []
+                        (let [hi-group {:group :Comment
+                                        :fg (. (groups.meldBG) 1)
+                                        :bg :SKIP
+                                        :ctermfg (. (groups.selectionBG) 3)
+                                        :ctermbg :SKIP}]
+                          (each [_ v (ipairs main.configs.comment_style)]
+                            (tset hi-group v true))
+                          hi-group))
                       {:group :Constant
                        :fg (. (groups.fillBG) 1)
                        :bg :SKIP
@@ -253,13 +257,16 @@
                        :ctermfg (. (special) 2)
                        :ctermbg :SKIP
                        :bold true}
-                      {:group :SpecialComment
-                       :fg (ucolors.blend (. (special) 1) (. (groups.meldBG) 1)
-                                          0.2)
-                       :bg :SKIP
-                       :ctermfg (. (special) 2)
-                       :ctermbg :SKIP
-                       (. main.configs.comment_style 1) true}
+                      (fn []
+                        (let [hi-group {:group :SpecialComment
+                                        :fg (ucolors.blend (. (special) 1) (. (groups.meldBG) 1)
+                                                           0.2)
+                                        :bg :SKIP
+                                        :ctermfg (. (special) 2)
+                                        :ctermbg :SKIP}]
+                          (each [_ v (ipairs main.configs.comment_style)]
+                            (tset hi-group v true))
+                          hi-group))
                       {:group :Debug
                        :fg (ucolors.blend (. (special) 1) (. (groups.auxBG) 1)
                                           0.2)
