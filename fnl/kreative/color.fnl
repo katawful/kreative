@@ -12,16 +12,24 @@
 ;; -- nil checked with error reportind
 ;; @opts -- the colors to load from
 (defn- load-colors [opts]
-  {
-   :light-fore-back (assert (?. opts :light_fore_back) "Please add a color value to table key: 'light_fore_back'")
-   :dark-fore-back (assert (?. opts :dark_fore_back) "Please add a color value to table key: 'dark_fore_back'")
+  ; add sub colors that match the colors designed for kreative
+  ; could potentially be expanded upon, doesn't need to be strict
+  (let [pink-sub (assert (or (?. opts :pink)
+                             (?. opts :auxiliary))
+                         "Please add a color to table key: 'pink' or 'auxiliary'")
+        orange-sub (assert (or (?. opts :orange)
+                               (?. opts :yellow))
+                           "Please add a color to table key: 'orange' or 'yellow'")]
+    {
+     :light-fore-back (assert (?. opts :light_fore_back) "Please add a color value to table key: 'light_fore_back'")
+     :dark-fore-back (assert (?. opts :dark_fore_back) "Please add a color value to table key: 'dark_fore_back'")
 
-   :red-primary (assert (?. opts :red) "Please add a color value to table key: 'red'")
-   :green-primary (assert (?. opts :green) "Please add a color value to table key: 'green'")
-   :orange-primary (assert (?. opts :orange) "Please add a color value to table key: 'orange'")
-   :pink-primary (assert (?. opts :pink) "Please add a color value to table key: 'pink'")
-   :purple-primary (assert (?. opts :purple) "Please add a color value to table key: 'purple'")
-   :blue-primary (assert (?. opts :blue) "Please add a color value to table key: 'blue'")})
+     :red-primary (assert (?. opts :red) "Please add a color value to table key: 'red'")
+     :green-primary (assert (?. opts :green) "Please add a color value to table key: 'green'")
+     :orange-primary orange-sub
+     :pink-primary pink-sub
+     :purple-primary (assert (?. opts :purple) "Please add a color value to table key: 'purple'")
+     :blue-primary (assert (?. opts :blue) "Please add a color value to table key: 'blue'")}))
 
 ;;; There values need to be mutable
 ;;; We could achieve this with a function, but Lua functions aren't the fastest
