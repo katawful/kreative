@@ -30,10 +30,10 @@
       :utils.export.init {
                           :not-colorscheme {:number 1
                                             :type :error
-                                            :message "Not a kat.nvim colorscheme, theme won't compile"}
+                                            :message "Not a theme made with Kreative, theme won't compile"}
                           :invalid-arg {:number 2
                                         :type :error
-                                        :message "'%s' is not a valid argument for :KatGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available"}
+                                        :message "'%s' is not a valid argument for :KreativeGenTermTheme, check supported terminals or enclose in quotes if nvim-0.7 is not available"}
                           :term-theme-generated {:number 1
                                                  :type :info
                                                  :message "%s color file generated at cwd using %s colorscheme with %s background"}}})
@@ -75,6 +75,6 @@
                           :info :I
                           :debug :D
                           :trace :T)
-            output (string.format "kat.nvim %s%s: %s" notify-type
+            output (string.format "Kreative %s%s: %s" notify-type
                                   message-table.number message-table.message)]
         output))
