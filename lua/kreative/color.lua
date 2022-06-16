@@ -15,11 +15,11 @@ local main, ucolors = autoload("kreative.main"), autoload("kreative.utils.highli
 do end (_2amodule_locals_2a)["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local function load_colors(opts)
-  local pink_sub
+  local dark_sub
   local function _1_()
     local t_2_ = opts
     if (nil ~= t_2_) then
-      t_2_ = (t_2_).pink
+      t_2_ = (t_2_).dark
     else
     end
     return t_2_
@@ -27,17 +27,17 @@ local function load_colors(opts)
   local function _4_()
     local t_5_ = opts
     if (nil ~= t_5_) then
-      t_5_ = (t_5_).auxiliary
+      t_5_ = (t_5_).color_0
     else
     end
     return t_5_
   end
-  pink_sub = assert((_1_() or _4_()), "Please add a color to table key: 'pink' or 'auxiliary'")
-  local orange_sub
+  dark_sub = assert((_1_() or _4_() or "Please add a color value to table key: 'dark', or 'color_0'"))
+  local red_sub
   local function _7_()
     local t_8_ = opts
     if (nil ~= t_8_) then
-      t_8_ = (t_8_).orange
+      t_8_ = (t_8_).red
     else
     end
     return t_8_
@@ -45,67 +45,137 @@ local function load_colors(opts)
   local function _10_()
     local t_11_ = opts
     if (nil ~= t_11_) then
-      t_11_ = (t_11_).yellow
+      t_11_ = (t_11_).color_1
     else
     end
     return t_11_
   end
-  orange_sub = assert((_7_() or _10_()), "Please add a color to table key: 'orange' or 'yellow'")
-  local _14_
-  do
-    local t_13_ = opts
-    if (nil ~= t_13_) then
-      t_13_ = (t_13_).light_fore_back
+  red_sub = assert((_7_() or _10_() or "Please add a color value to table key: 'red', or 'color_1'"))
+  local green_sub
+  local function _13_()
+    local t_14_ = opts
+    if (nil ~= t_14_) then
+      t_14_ = (t_14_).green
     else
     end
-    _14_ = t_13_
+    return t_14_
   end
-  local _17_
-  do
-    local t_16_ = opts
-    if (nil ~= t_16_) then
-      t_16_ = (t_16_).dark_fore_back
+  local function _16_()
+    local t_17_ = opts
+    if (nil ~= t_17_) then
+      t_17_ = (t_17_).color_2
     else
     end
-    _17_ = t_16_
+    return t_17_
   end
-  local _20_
-  do
-    local t_19_ = opts
-    if (nil ~= t_19_) then
-      t_19_ = (t_19_).red
+  green_sub = assert((_13_() or _16_() or "Please add a color value to table key: 'green', or 'color_2'"))
+  local orange_sub
+  local function _19_()
+    local t_20_ = opts
+    if (nil ~= t_20_) then
+      t_20_ = (t_20_).orange
     else
     end
-    _20_ = t_19_
+    return t_20_
   end
-  local _23_
-  do
-    local t_22_ = opts
-    if (nil ~= t_22_) then
-      t_22_ = (t_22_).green
+  local function _22_()
+    local t_23_ = opts
+    if (nil ~= t_23_) then
+      t_23_ = (t_23_).yellow
     else
     end
-    _23_ = t_22_
+    return t_23_
   end
-  local _26_
-  do
-    local t_25_ = opts
-    if (nil ~= t_25_) then
-      t_25_ = (t_25_).purple
+  local function _25_()
+    local t_26_ = opts
+    if (nil ~= t_26_) then
+      t_26_ = (t_26_).color_3
     else
     end
-    _26_ = t_25_
+    return t_26_
   end
-  local _29_
-  do
-    local t_28_ = opts
-    if (nil ~= t_28_) then
-      t_28_ = (t_28_).blue
+  orange_sub = assert((_19_() or _22_() or _25_()), "Please add a color to table key: 'orange', 'yellow', 'color_4'")
+  local blue_sub
+  local function _28_()
+    local t_29_ = opts
+    if (nil ~= t_29_) then
+      t_29_ = (t_29_).blue
     else
     end
-    _29_ = t_28_
+    return t_29_
   end
-  return {["light-fore-back"] = assert(_14_, "Please add a color value to table key: 'light_fore_back'"), ["dark-fore-back"] = assert(_17_, "Please add a color value to table key: 'dark_fore_back'"), ["red-primary"] = assert(_20_, "Please add a color value to table key: 'red'"), ["green-primary"] = assert(_23_, "Please add a color value to table key: 'green'"), ["orange-primary"] = orange_sub, ["pink-primary"] = pink_sub, ["purple-primary"] = assert(_26_, "Please add a color value to table key: 'purple'"), ["blue-primary"] = assert(_29_, "Please add a color value to table key: 'blue'")}
+  local function _31_()
+    local t_32_ = opts
+    if (nil ~= t_32_) then
+      t_32_ = (t_32_).color_4
+    else
+    end
+    return t_32_
+  end
+  blue_sub = assert((_28_() or _31_() or "Please add a color value to table key: 'blue', or 'color_4'"))
+  local pink_sub
+  local function _34_()
+    local t_35_ = opts
+    if (nil ~= t_35_) then
+      t_35_ = (t_35_).pink
+    else
+    end
+    return t_35_
+  end
+  local function _37_()
+    local t_38_ = opts
+    if (nil ~= t_38_) then
+      t_38_ = (t_38_).auxiliary
+    else
+    end
+    return t_38_
+  end
+  local function _40_()
+    local t_41_ = opts
+    if (nil ~= t_41_) then
+      t_41_ = (t_41_).color_5
+    else
+    end
+    return t_41_
+  end
+  pink_sub = assert((_34_() or _37_() or _40_()), "Please add a color to table key: 'pink', 'auxiliary', or 'color_5'")
+  local purple_sub
+  local function _43_()
+    local t_44_ = opts
+    if (nil ~= t_44_) then
+      t_44_ = (t_44_).purple
+    else
+    end
+    return t_44_
+  end
+  local function _46_()
+    local t_47_ = opts
+    if (nil ~= t_47_) then
+      t_47_ = (t_47_).color_6
+    else
+    end
+    return t_47_
+  end
+  purple_sub = assert((_43_() or _46_()), "Please add a color value to table key: 'purple', or 'color_6'")
+  local light_sub
+  local function _49_()
+    local t_50_ = opts
+    if (nil ~= t_50_) then
+      t_50_ = (t_50_).light
+    else
+    end
+    return t_50_
+  end
+  local function _52_()
+    local t_53_ = opts
+    if (nil ~= t_53_) then
+      t_53_ = (t_53_).color_7
+    else
+    end
+    return t_53_
+  end
+  light_sub = assert((_49_() or _52_() or "Please add a color value to table key: 'light', or 'color_7'"))
+  return {["light-fore-back"] = light_sub, ["dark-fore-back"] = dark_sub, ["red-primary"] = red_sub, ["green-primary"] = green_sub, ["orange-primary"] = orange_sub, ["pink-primary"] = pink_sub, ["purple-primary"] = purple_sub, ["blue-primary"] = blue_sub}
 end
 _2amodule_locals_2a["load-colors"] = load_colors
 local light_fore_back = ""
@@ -182,12 +252,12 @@ local function def_fore_colors()
 end
 _2amodule_locals_2a["def-fore-colors"] = def_fore_colors
 local function init(table)
-  local _37_ = table
-  if (_37_ == "normalColors") then
+  local _61_ = table
+  if (_61_ == "normalColors") then
     return def_normal_colors()
-  elseif (_37_ == "background") then
+  elseif (_61_ == "background") then
     return def_back_colors()
-  elseif (_37_ == "foreground") then
+  elseif (_61_ == "foreground") then
     return def_fore_colors()
   else
     return nil

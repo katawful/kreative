@@ -13,23 +13,42 @@
 ;; @opts -- the colors to load from
 (defn- load-colors [opts]
   ; add sub colors that match the colors designed for kreative
-  ; could potentially be expanded upon, doesn't need to be strict
-  (let [pink-sub (assert (or (?. opts :pink)
-                             (?. opts :auxiliary))
-                         "Please add a color to table key: 'pink' or 'auxiliary'")
+  (let [dark-sub (assert (or (?. opts :dark)
+                             (?. opts :color_0)
+                          "Please add a color value to table key: 'dark', or 'color_0'"))
+        red-sub (assert (or (?. opts :red)
+                            (?. opts :color_1)
+                          "Please add a color value to table key: 'red', or 'color_1'"))
+        green-sub (assert (or (?. opts :green)
+                              (?. opts :color_2)
+                            "Please add a color value to table key: 'green', or 'color_2'"))
         orange-sub (assert (or (?. opts :orange)
-                               (?. opts :yellow))
-                           "Please add a color to table key: 'orange' or 'yellow'")]
+                               (?. opts :yellow)
+                               (?. opts :color_3))
+                           "Please add a color to table key: 'orange', 'yellow', 'color_4'")
+        blue-sub (assert (or (?. opts :blue)
+                             (?. opts :color_4)
+                           "Please add a color value to table key: 'blue', or 'color_4'"))
+        pink-sub (assert (or (?. opts :pink)
+                             (?. opts :auxiliary)
+                             (?. opts :color_5))
+                         "Please add a color to table key: 'pink', 'auxiliary', or 'color_5'")
+        purple-sub (assert (or (?. opts :purple)
+                            (?. opts :color_6))
+                          "Please add a color value to table key: 'purple', or 'color_6'")
+        light-sub (assert (or (?. opts :light)
+                              (?. opts :color_7)
+                           "Please add a color value to table key: 'light', or 'color_7'"))]
     {
-     :light-fore-back (assert (?. opts :light_fore_back) "Please add a color value to table key: 'light_fore_back'")
-     :dark-fore-back (assert (?. opts :dark_fore_back) "Please add a color value to table key: 'dark_fore_back'")
+     :light-fore-back light-sub
+     :dark-fore-back dark-sub
 
-     :red-primary (assert (?. opts :red) "Please add a color value to table key: 'red'")
-     :green-primary (assert (?. opts :green) "Please add a color value to table key: 'green'")
+     :red-primary red-sub
+     :green-primary green-sub
      :orange-primary orange-sub
      :pink-primary pink-sub
-     :purple-primary (assert (?. opts :purple) "Please add a color value to table key: 'purple'")
-     :blue-primary (assert (?. opts :blue) "Please add a color value to table key: 'blue'")}))
+     :purple-primary purple-sub
+     :blue-primary blue-sub}))
 
 ;;; There values need to be mutable
 ;;; We could achieve this with a function, but Lua functions aren't the fastest
