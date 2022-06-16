@@ -11,12 +11,13 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local a, alacritty, hsl, kitty, konsole, message, rxvt, s, _ = autoload("kreative.aniseed.core"), autoload("kreative.utils.export.alacritty"), autoload("externals.hsluv"), autoload("kreative.utils.export.kitty"), autoload("kreative.utils.export.konsole"), autoload("kreative.utils.message.init"), autoload("kreative.utils.export.rxvt"), autoload("kreative.aniseed.string"), nil
+local a, alacritty, hsl, kitty, konsole, main, message, rxvt, s, _ = autoload("kreative.aniseed.core"), autoload("kreative.utils.export.alacritty"), autoload("externals.hsluv"), autoload("kreative.utils.export.kitty"), autoload("kreative.utils.export.konsole"), autoload("kreative.main"), autoload("kreative.utils.message.init"), autoload("kreative.utils.export.rxvt"), autoload("kreative.aniseed.string"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["alacritty"] = alacritty
 _2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["kitty"] = kitty
 _2amodule_locals_2a["konsole"] = konsole
+_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["rxvt"] = rxvt
 _2amodule_locals_2a["s"] = s
@@ -97,7 +98,7 @@ local function notify_24(terminal)
 end
 _2amodule_2a["notify$"] = notify_24
 local function is_colorscheme_3f()
-  if ((vim.g.colors_name ~= "kat.nvim") and (vim.g.colors_name ~= "kat.nwim")) then
+  if (vim.g.colors_name ~= main.configs.colors_name) then
     message["error$"](message["<-table"]("utils.export.init", "not-colorscheme"))
     return false
   else
@@ -137,8 +138,8 @@ if (vim.fn.has("nvim-0.7") == 1) then
   local function _11_(args)
     return gen_term_colors(args.args)
   end
-  vim.api.nvim_create_user_command("KatGenTermTheme", _11_, {nargs = 1})
+  vim.api.nvim_create_user_command("KreativeGenTermTheme", _11_, {nargs = 1})
 else
-  vim.api.nvim_command("command! -nargs=1 KatGenTermTheme lua require('kreative.utils.export.init').gen_term_colors(<args>)")
+  vim.api.nvim_command("command! -nargs=1 KreativeGenTermTheme lua require('kreative.utils.export.init').gen_term_colors(<args>)")
 end
 return _2amodule_2a

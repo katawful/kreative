@@ -1,5 +1,6 @@
 (module kreative.utils.export.init
         {autoload {hsl externals.hsluv
+                   main kreative.main
                    message kreative.utils.message.init
                    kitty kreative.utils.export.kitty
                    alacritty kreative.utils.export.alacritty
@@ -125,8 +126,7 @@
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"
-      (if (and (not= vim.g.colors_name :kat.nvim)
-               (not= vim.g.colors_name :kat.nwim))
+      (if (not= vim.g.colors_name main.configs.colors_name)
           (do
             (message.error$ (message.<-table :utils.export.init
                                              :not-colorscheme))
@@ -160,8 +160,8 @@
 
 ;; create user command for terminal color generation
 (if (= (vim.fn.has :nvim-0.7) 1)
-    (command- :KatGenTermTheme
+    (command- :KreativeGenTermTheme
               (fn [args]
                 (gen_term_colors args.args)) {:nargs 1})
-    (command*-vim :KatGenTermTheme {:nargs 1}
+    (command*-vim :KreativeGenTermTheme {:nargs 1}
                   "lua require('kreative.utils.export.init').gen_term_colors(<args>)"))
