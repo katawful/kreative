@@ -60,15 +60,16 @@
 (var pink-primary "")
 (var purple-primary "")
 (var blue-primary "")
-(defn init-colors []
-  (set light-fore-back (. (load-colors _G.kreative_colors) :light-fore-back))
-  (set dark-fore-back (. (load-colors _G.kreative_colors) :dark-fore-back))
-  (set red-primary (. (load-colors _G.kreative_colors) :red-primary))
-  (set green-primary (. (load-colors _G.kreative_colors) :green-primary))
-  (set orange-primary (. (load-colors _G.kreative_colors) :orange-primary))
-  (set pink-primary (. (load-colors _G.kreative_colors) :pink-primary))
-  (set purple-primary (. (load-colors _G.kreative_colors) :purple-primary))
-  (set blue-primary (. (load-colors _G.kreative_colors) :blue-primary)))
+(defn init-colors [color-table]
+  (assert color-table "Please pass a color file to 'kreative.color.init-colors' in your colorscheme file")
+  (set light-fore-back (. (load-colors color-table) :light-fore-back))
+  (set dark-fore-back (. (load-colors color-table) :dark-fore-back))
+  (set red-primary (. (load-colors color-table) :red-primary))
+  (set green-primary (. (load-colors color-table) :green-primary))
+  (set orange-primary (. (load-colors color-table) :orange-primary))
+  (set pink-primary (. (load-colors color-table) :pink-primary))
+  (set purple-primary (. (load-colors color-table) :purple-primary))
+  (set blue-primary (. (load-colors color-table) :blue-primary)))
 
 ;; FN -- Define a table of primary colors
 (defn- def-normal-colors [] "A table of regular color"

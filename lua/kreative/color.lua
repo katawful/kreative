@@ -186,15 +186,16 @@ local orange_primary = ""
 local pink_primary = ""
 local purple_primary = ""
 local blue_primary = ""
-local function init_colors()
-  light_fore_back = load_colors(_G.kreative_colors)["light-fore-back"]
-  dark_fore_back = load_colors(_G.kreative_colors)["dark-fore-back"]
-  red_primary = load_colors(_G.kreative_colors)["red-primary"]
-  green_primary = load_colors(_G.kreative_colors)["green-primary"]
-  orange_primary = load_colors(_G.kreative_colors)["orange-primary"]
-  pink_primary = load_colors(_G.kreative_colors)["pink-primary"]
-  purple_primary = load_colors(_G.kreative_colors)["purple-primary"]
-  blue_primary = load_colors(_G.kreative_colors)["blue-primary"]
+local function init_colors(color_table)
+  assert(color_table, "Please pass a color file to 'kreative.color.init-colors' in your colorscheme file")
+  light_fore_back = load_colors(color_table)["light-fore-back"]
+  dark_fore_back = load_colors(color_table)["dark-fore-back"]
+  red_primary = load_colors(color_table)["red-primary"]
+  green_primary = load_colors(color_table)["green-primary"]
+  orange_primary = load_colors(color_table)["orange-primary"]
+  pink_primary = load_colors(color_table)["pink-primary"]
+  purple_primary = load_colors(color_table)["purple-primary"]
+  blue_primary = load_colors(color_table)["blue-primary"]
   return nil
 end
 _2amodule_2a["init-colors"] = init_colors
