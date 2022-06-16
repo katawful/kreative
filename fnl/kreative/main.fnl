@@ -12,9 +12,10 @@
         (vim.cmd "highlight clear"))
       (when (= (vim.fn.exists :syntax_on) 1)
         (vim.cmd "syntax reset"))
-      (def contrast (assert (?. opts :contrast) "Please add a contrast to your opts table"))
-      (def background vim.o.background)
+      (set configs.contrast (assert (?. opts :contrast) "Please add a contrast to your opts table"))
+      (set configs.background vim.o.background)
       (let- :g :colors_name (assert (?. opts :colors_name) "Please add a colors_name to your opts table"))
+      (set configs.colors_name opts.colors_name)
       (if (= configs.render true) 
           ; do the dynamic path
           (do

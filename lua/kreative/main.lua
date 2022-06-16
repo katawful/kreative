@@ -26,7 +26,6 @@ local function init(opts)
     vim.cmd("syntax reset")
   else
   end
-  local contrast
   local _4_
   do
     local t_3_ = opts
@@ -36,10 +35,8 @@ local function init(opts)
     end
     _4_ = t_3_
   end
-  contrast = assert(_4_, "Please add a contrast to your opts table")
-  do end (_2amodule_2a)["contrast"] = contrast
-  local background = vim.o.background
-  _2amodule_2a["background"] = background
+  configs.contrast = assert(_4_, "Please add a contrast to your opts table")
+  configs.background = vim.o.background
   local _7_
   do
     local t_6_ = opts
@@ -50,6 +47,7 @@ local function init(opts)
     _7_ = t_6_
   end
   vim.g["colors_name"] = assert(_7_, "Please add a colors_name to your opts table")
+  configs.colors_name = opts.colors_name
   if (configs.render == true) then
     do end (require("kreative.highlights.main")).init()
     do end (require("kreative.highlights.syntax")).init()
