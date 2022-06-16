@@ -11,7 +11,8 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local options, _ = autoload("kreative.utils.options.init"), nil
+local message, options, _ = autoload("kreative.utils.messages.init"), autoload("kreative.utils.options.init"), nil
+_2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
 _2amodule_locals_2a["_"] = _
 local function init(opts)
@@ -65,20 +66,7 @@ local function init(opts)
     end
     return nil
   else
-    do end (require(("kreative.exported.main-" .. background .. "-" .. contrast))).init()
-    do end (require(("kreative.exported.syntax-" .. background .. "-" .. contrast))).init()
-    do end (require("kreative.highlights.terminal")).init()
-    require("kreative.utils.export.init")
-    do end (require("kreative.utils.export.render")).init()
-    for _0, v in ipairs(configs.integrations) do
-      local output = ("kreative.exported.integrations." .. v .. "-" .. background .. "-" .. contrast)
-      require(output).init()
-    end
-    for _0, v in pairs(configs.filetypes) do
-      local output = ("kreative.exported.filetype." .. v .. "-" .. background .. "-" .. contrast)
-      require(output).init()
-    end
-    return nil
+    return message["error$"](message["<-table"]("main", "render-disable"))
   end
 end
 _2amodule_2a["init"] = init

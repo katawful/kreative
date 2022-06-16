@@ -19,6 +19,10 @@
 ;; fnlfmt: skip
 (defonce- notifications
      {
+      :main {
+             :render-disable {:number 3
+                              :type :error
+                              :message "Pre-compiled color files are not supported atm, please set 'render' to true in your colorscheme file created for Kreative"}}
       :utils.export.render {
                             :compilation-dev {:number 1
                                               :type :warn

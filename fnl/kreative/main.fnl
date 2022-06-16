@@ -1,5 +1,5 @@
 (module kreative.main
-        {autoload {
+        {autoload {message kreative.utils.messages.init
                    options kreative.utils.options.init}
          require-macros [kreative.katcros-fnl.macros.nvim.api.options.macros]})
 
@@ -32,20 +32,21 @@
               ((. (require output) :init))))
           ; do the prerendered path
           (do
-            ((. (require (.. :kreative.exported.main- background "-" contrast))
-                :init))
-            ((. (require (.. :kreative.exported.syntax- background "-"
-                             contrast)) :init))
-            ((. (require :kreative.highlights.terminal) :init))
-            (require :kreative.utils.export.init) 
-            ; add integrations
-            ((. (require :kreative.utils.export.render) :init))
-            (each [_ v (ipairs configs.integrations)]
-              (local output
-                     (.. :kreative.exported.integrations. v "-" background
-                         "-" contrast))
-              ((. (require output) :init)))
-            (each [_ v (pairs configs.filetypes)]
-              (local output (.. :kreative.exported.filetype. v "-" background
-                                "-" contrast))
-              ((. (require output) :init))))))
+            (message.error$ (message.<-table :main :render-disable)))))
+            ; ((. (require (.. :kreative.exported.main- background "-" contrast))
+            ;     :init))
+            ; ((. (require (.. :kreative.exported.syntax- background "-"
+            ;                  contrast)) :init))
+            ; ((. (require :kreative.highlights.terminal) :init))
+            ; (require :kreative.utils.export.init) 
+            ; ; add integrations
+            ; ((. (require :kreative.utils.export.render) :init))
+            ; (each [_ v (ipairs configs.integrations)]
+            ;   (local output
+            ;          (.. :kreative.exported.integrations. v "-" background
+            ;              "-" contrast))
+            ;   ((. (require output) :init)))
+            ; (each [_ v (pairs configs.filetypes)]
+            ;   (local output (.. :kreative.exported.filetype. v "-" background
+            ;                     "-" contrast))
+            ;   ((. (require output) :init))))))
