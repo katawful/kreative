@@ -28,6 +28,22 @@ Features:
 
 I'll be honest, I mostly wrote this for me as I like changing up colorschemes a lot but loathe making new colorschemes. Pywal was what got me into it, but I want to keep the GUI colorscheme spirit alive, and I hope that you at least try this out.
 
+# Supported Plugins
+| Plugin | Option Name |
+| --- | --- |
+| [Native LSP](https://github.com/neovim/nvim-lspconfig) | 'lsp' |
+| [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) | 'treesitter' |
+| [Startify](https://github.com/mhinz/vim-startify) | 'startify' |
+| [TS Rainbow](https://github.com/p00f/nvim-ts-rainbow) | 'ts_rainbow' |
+| [indent-blankline](https://github.com/lukas-reineke/indent-blankline.nvim) | 'indent_blankline' |
+| [coc.nvim](https://github.com/neoclide/coc.nvim) | 'coc' |
+| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | 'cmp' |
+| [bufferline](https://github.com/akinsho/bufferline.nvim) | Note: not enabled by default 'bufferline' |
+| [lightline](https://github.com/itchyny/lightline.vim) | Use plugin settings: 'kreative' |
+| [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kreative' |
+| [Lualine](https://github.com/nvim-lualine/lualine.nvim) | Use plugin settings: 'kreative' |
+| [Fugitive](https://github.com/tpope/vim-fugitive) | 'fugitive' |
+
 # Creating your colorscheme
 Creating your colorscheme is very simple, I will be using Lua for this example. Inside a valid `/color` directory, i.e. inside your Neovim config directory, create a file named after what you wish to call this. As to not overload anything, and to keep interfacing with Neovim as vanilla as possible, if you desire to have both hard and soft contrasts for the same set of colors, name your file something to reflect this. Going forward, this file name is now your colorscheme's name.
 
