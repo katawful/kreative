@@ -9,6 +9,172 @@ _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| `
 "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' `
 
 Kreative is a colorscheme generator for end users. It is designed purely to
-generate appropriate colors based on a set of 8 colors provided by the user.
+generate appropriate colors based on a set of 8 colors provided by the user
+via a colorscheme file placed in `colors/`. The colorscheme created can be
+used with |'termguicolors'| or without for a 16 color scheme alongside
+supported terminal generation.
+
+==============================================================================
+CONTENTS                                                             *kreative*
+
+1. Creating colorscheme ........................|kreative-colorscheme|
+2. Generation...................................|kreative-generation|
+3. Exmaple......................................|kreative-example|
+
+==============================================================================
+Section 1: Creating a Kreative colorscheme               *kreative-colorscheme*
+
+Colorschemes made for Kreative can be made with Vimscript or Lua, but as the
+interface is made with Lua it is best to use the latter filetype.
+
+The colorscheme file itself does 3 things:
+   1. Import a table of colors
+   2. Import a table of Kreative options
+   3. Execute Kreative
+
+------------------------------------------------------------------------------
+Section 1a: Colorsheme file                         *kreative-colorscheme-file*
+
+The file for Kreative should be placed into `colors/` as any other
+|:colorscheme| would. The file name should match the desired name you want for
+the colorscheme. For instance, if I wanted to create a colorscheme called
+"kat", I would name the file `colors/kat.lua`. This name is required to be
+loaded by Neovim via `:colorscheme` and to maintain functionality with
+Kreative.
+
+------------------------------------------------------------------------------
+Section 1b: Colors table                                *kreative-colors-table*
+The colors table is a key/value table that contains 8 entries corresponding to
+the colors desired to be used with Kreative. The following are the available
+aliases for each color:
+
+		    `Base color | Alias(es)`
+		    `color_0    | dark`
+		    `color_1    | red`
+		    `color_2    | green`
+		    `color_3    | orange, yellow`
+		    `color_4    | blue`
+		    `color_5    | pink, auxiliary`
+		    `color_6    | purple`
+		    `color_7    | light`
+
+Each color numbered 0 through 7 must be included, but any mix of aliases can
+be used. The table simply needs to exist to be passed to Kreative, it can be
+defined in anyway. It is recommended to keep everything within the colorscheme
+file itself, but generating the table programatically like for a colorscheme
+switcher does work.
+
+------------------------------------------------------------------------------
+Section 1c: Kreative Options                                 *kreative-options*
+
+Kreative allows you to set any external option desired with a table of
+options. 2 options are required to use Kreative at all: a `contrast` option
+and a `colors_name` option. The first is either 'soft' or 'hard', reflecting
+the contrast that your colorscheme will provide. The second is the name of
+your colorscheme, and should be the name of your colorscheme file.
+
+Optional Options *kreative-options-opt*
+
+The rest are the options that you can pick for Kreative:
+
+			For 'integrations' table
+		Filetype Name     |     Notes
+		treesitter        |     default  
+		lsp               |     default  
+		ts_rainbow        |     default  
+		indent_blankline  |     default  
+		startify          |     default  
+		coc               |     default  
+		cmp               |     default  
+		fugitive          |     default  
+		bufferline        |     not default
+
+			For 'filetype' table
+		vim               |     default  
+		vimwiki           |     default  
+		markdown          |     default  
+
+		  'comment_style' | table of |attr-list|
+		         'render' | boolean
+
+                                                              *kreative-render*
+For 'render', this controls if Kreative uses its prerendered files or not.
+When this is set to true, Kreative will use functions to generate each
+colorscheme. It requires more start up time, but always works. Pre-rendered
+files are not supported atm, and setting 'render' to false will present an
+error
+
+------------------------------------------------------------------------------
+Section 1d: Executing Kreative                               *kreative-execute*
+
+Kreative is called by two Lua funtions
+	`require("kreative.color")["init-colors"](colors_table)`
+	`require("kreative.main").init(opts_table)`
+
+The first function initializes the colors for Kreative, it is the function
+where you pass the colors table. The second function starts Kreative itself,
+it is the function where you pass the options table.
+
+==============================================================================
+Section 2: Generating with Kreative                       *kreative-generation*
+
+Kreative can generate some files to make your life easier. Currently it can
+only generate terminal colorscheme files for supported terminals.
+
+                                                            *kreative-terminal*
+To generate a colorscheme for a supported terminal, use the user command:
+	`:KreativeGenTermTheme terminal`
+
+The supported terminals are:
+		Terminal | Setting
+		'kitty' | kitty
+		'alacritty' | alacritty
+		'URxvt' | urxvt, rxvt-unicode
+		'konsole' | konsole
+
+==============================================================================
+Section 3: Example                                           *kreative-example*
+
+The following is an example colorscheme file called 'kreative.lua':
+
+		`local colors = {`
+			`dark = "#282828",`
+			`red = "#cc241d",`
+			`green = "#98971a",`
+			`orange = "#d79921",`
+			`blue = "#458588",`
+			`purple = "#b16286",`
+			`pink = "#689d6a",`
+			`light = "#ebdbb2",`
+		`}`
+
+		`-- Required opts table`
+		`local opts = {`
+			`contrast = "soft",`
+			`colors_name = "kreative",`
+			`-- rest are optional`
+			`integrations = {`
+				`"treesitter",`
+				`"lsp",`
+				`"ts_rainbow",`
+				`"indent_blankline",`
+				`"startify",`
+				`"coc",`
+				`"cmp",`
+				`"fugitive",`
+			`},`
+			`filetypes = {`
+				`"vim",`
+				`"vimwiki",`
+				`"markdown",`
+			`},`
+			`comment_style = {"italic"},`
+			`render = true,`
+		`}`
+
+		`require("kreative.color")["init-colors"](colors)`
+		`require("kreative.main").init(opts)`
+
+
 
 vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
