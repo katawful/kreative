@@ -12,7 +12,8 @@ Kreative is a colorscheme generator for end users. It is designed purely to
 generate appropriate colors based on a set of 8 colors provided by the user
 via a colorscheme file placed in `colors/`. The colorscheme created can be
 used with |'termguicolors'| or without for a 16 color scheme alongside
-supported terminal generation.
+supported terminal generation. As well, the background is set implicitly
+through |'background'|.
 
 ==============================================================================
 CONTENTS                                                             *kreative*
@@ -20,6 +21,7 @@ CONTENTS                                                             *kreative*
 1. Creating colorscheme ........................|kreative-colorscheme|
 2. Generation...................................|kreative-generation|
 3. Exmaple......................................|kreative-example|
+4. Message tags ................................|kreative-tags|
 
 ==============================================================================
 Section 1: Creating a Kreative colorscheme               *kreative-colorscheme*
@@ -175,6 +177,36 @@ The following is an example colorscheme file called 'kreative.lua':
 		`require("kreative.color")["init-colors"](colors)`
 		`require("kreative.main").init(opts)`
 
+==============================================================================
+Section 4: Message tags                                         *kreative.tags*
 
+Messages presented by Kreative are tagged for easy finding:
+
+                                                         *kreative-tags-errors*
+`E1`
+Presents when generation attempts to generate, typically for terminals,
+and the colorscheme used is not one created with Kreative. Fix by switching to
+the Kreative colorsheme first.
+
+`E2`
+The arguments for the user command `KreativeGenTermTheme` are not one of the
+valid supplied terminals. Fix by using one of the valid args from
+|kreative-generation|. For users of Neovim before 0.7, you must also enclose
+the argument in quotations.
+
+`E3`
+The colorscheme option 'render' was set to false. Kreative does not support
+using prerendered color files at the moment, fix by setting 'render' to true
+or removing it from your colorscheme file.
+
+`W1`
+The setting `vim.g.kat_nvim_compile_enable` is a carry over from kat.nvim in
+order to generate color files. It is a development feature and should never be
+enabled, simply do not set this variable to fix.
+
+`I1`
+Presents when a terminal theme has generated. It mentions the terminal
+generated for, what colorscheme it comes from, and what background option was
+set when generating.
 
 vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
