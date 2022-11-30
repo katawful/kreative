@@ -1,428 +1,336 @@
 (module kreative.highlights.main
         {autoload {colors kreative.color
                    ucolors kreative.utils.highlight.utils
-                   run kreative.utils.highlight.run
-                   main kreative.main}})
+                   run kreative.utils.highlight.run}
+         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
 
-; define variables to use for generic uses
-; each variable is actually a function that gets called so that they always update and work with Aniseed modules
-(defn mainFG [] (var output {})
-      (if (and (= vim.o.background :dark) (= main.configs.contrast :soft))
-          (do
-            (tset output 1 (ucolors.brighten (. (colors.foreground) 1) 0.8))
-            (tset output 2 7))
-          (do
-            (tset output 1 (. (colors.foreground) 1))
-            (tset output 2 7))) output)
-
-(defn mainBG [] [(. (colors.background) 1) 0])
-
-(defn umbraFG [] [(. (colors.foreground) 2) 15])
-
-(defn umbraBG [] [(. (colors.background) 2) 8])
-
-(defn shadowFG [] [(. (colors.foreground) 3) 16])
-
-(defn shadowBG [] [(. (colors.background) 3) 16])
-
-(defn meldFG [] [(. (colors.foreground) 4) 16])
-
-(defn meldBG [] [(. (colors.background) 4) 16])
-
-; pink/purple/blue are structural
-(defn selectionFG [] (local output [(. (mainFG) 1) 7]) output)
-
-(defn selectionBG [] [(. (colors.normal-colors) :blue) 4 12])
-
-(defn fillFG [] (local output [(. (mainFG) 1) 7]) output)
-
-(defn fillBG [] [(. (colors.normal-colors) :pink) 5 13])
-
-(defn highlightFG [] (local output [(. (mainFG) 1) 7]) output)
-
-(defn highlightBG [] [(. (colors.normal-colors) :purple) 6 14])
-
-; red and orange are information
-(defn errorFG [] (local output [(. (mainFG) 1) 7]) output)
-
-(defn errorBG [] [(. (colors.normal-colors) :red) 1])
-
-(defn warningFG [] (local output [(. (mainFG) 1) 7]) output)
-
-(defn warningBG [] (local output [(ucolors.blend (. (colors.normal-colors) :red)
-                                                 (. (mainBG) 1) 0.7)
-                                  9]) output)
-
-(defn infoFG [] (local output [(. (mainBG) 1) 0]) output)
-
-(defn infoBG [] [(. (colors.normal-colors) :orange) 3 11])
-
-; green and others are auxiliary
-(defn auxFG [] (local output (. (mainFG) 1)) output)
-
-(defn groupFunction [] (var output "")
-      (if (= vim.o.background :light)
-          (do
-            (set output (-> (. (colors.normal-colors) :green)
-                            (ucolors.darken 0.5)
-                            (ucolors.saturation 0.4))))
-          (do
-            (set output (-> (. (colors.normal-colors) :green)
-                            (ucolors.brighten 0.5)
-                            (ucolors.saturation -0.2))))) output)
-
-(defn auxBG [] (local output [(groupFunction) 2 10]) output)
-
-; this covers the main highlight groups
-
-(defn high-colors []
-      [{:group :Normal
-        :fg (. (mainFG) 1)
-        :bg (. (mainBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (mainBG) 2)}
-       {:group :NormalNC
-        :fg (. (mainFG) 1)
-        :bg (. (mainBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (mainBG) 2)}
-       {:group :NormalFloat
-        :fg (. (mainFG) 1)
-        :bg (. (shadowBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (umbraBG) 2)}
-       {:group :NonText
-        :fg (. (shadowFG) 1)
-        :bg (. (mainBG) 1)
-        :ctermfg (. (umbraFG) 2)
-        :ctermbg (. (mainBG) 2)}
-       ; TODO set match paren to TS rainbow?
-       {:group :MatchParen
-        :fg :SKIP
-        :bg (. (shadowBG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (umbraBG) 2)
-        :bold true}
-       {:group :SpecialKey
-        :fg (ucolors.blend (. (errorBG) 1) (. (mainBG) 1) 0.6)
-        :bg :NONE
-        :ctermfg (. (warningBG) 2)
-        :ctermbg :NONE
-        :italic true}
-       {:group :Whitespace
-        :fg (. (colors.foreground) 5)
-        :bg :SKIP
-        :ctermfg (. (umbraFG) 2)
-        :ctermbg :SKIP}
-       {:group :EndOfBuffer
-        :fg (. (umbraFG) 1)
-        :bg :SKIP
-        :ctermfg (. (umbraFG) 2)
-        :ctermbg :SKIP
-        :bold true}
-       {:group :Directory
-        :fg (-> (. (infoBG) 1)
-                (ucolors.blend (. (mainFG) 1) 0.1)
-                (ucolors.blend (. (selectionBG) 1) 0.2))
-        :bg :SKIP
-        :ctermfg (. (selectionBG) 2)
-        :ctermbg :SKIP}
-       {:group :Conceal
-        :fg (. (shadowBG) 1)
-        :bg :NONE
-        :ctermfg (. (umbraBG) 2)
-        :ctermbg :NONE}
-       ; Spelling
-       {:group :SpellBad
-        :fg :SKIP
-        :bg :SKIP
-        :ctermfg :SKIP
-        :ctermbg :NONE
-        :undercurl true
-        :sp (. (errorBG) 1)}
-       {:group :SpellCap
-        :fg :SKIP
-        :bg :SKIP
-        :ctermfg :SKIP
-        :ctermbg :NONE
-        :undercurl true
-        :sp (. (selectionBG) 1)}
-       {:group :SpellLocal
-        :fg :SKIP
-        :bg :SKIP
-        :ctermfg :SKIP
-        :ctermbg :NONE
-        :undercurl true
-        :sp (. (auxBG) 1)}
-       {:group :SpellRare
-        :fg :SKIP
-        :bg :SKIP
-        :ctermfg :SKIP
-        :ctermbg :NONE
-        :undercurl true
-        :sp (. (fillBG) 1)}
-       ; Statusline
-       {:group :StatusLine
-        :fg (. (colors.background) 5)
-        :bg (ucolors.blend (. (highlightBG) 1) (. (mainBG) 1) 0.7)
-        :ctermfg (. (umbraBG) 2)
-        :ctermbg (. (highlightBG) 3)
-        :bold true}
-       {:group :StatusLineNC
-        :fg (ucolors.blend (. (highlightBG) 1) (. (mainBG) 1) 0.7)
-        :bg (. (colors.background) 5)
-        :ctermfg (. (umbraBG) 2)
-        :ctermbg (. (highlightBG) 3)
-        :bold true}
-       ; Tabline
-       ; we need to make the dark soft font brighter to match dark hard tabline
-       ; looks bad otherwise imo
-       (if (and (= vim.o.background :dark) (= main.configs.contrast :soft))
-           (do
-             (var color (ucolors.brighten (. (highlightFG) 1) 0))
-             {:group :TabLine
-              :fg color
-              :bg (. (highlightBG) 1)
-              :ctermfg (. (highlightFG) 2)
-              :ctermbg (. (highlightBG) 2)}
-             {:group :TabLineFill
-              :fg (. (fillBG) 1)
-              :bg (. (fillBG) 1)
-              :ctermfg (. (fillBG) 2)
-              :ctermbg (. (fillBG) 2)}
-             {:group :TabLineSel
-              :fg color
-              :bg (. (selectionBG) 1)
-              :ctermfg (. (selectionFG) 2)
-              :ctermbg (. (selectionBG) 2)
-              :bold true})
-           (do
-             {:group :TabLine
-              :fg (. (highlightFG) 1)
-              :bg (. (highlightBG) 1)
-              :ctermfg (. (highlightFG) 2)
-              :ctermbg (. (highlightBG) 2)}
-             {:group :TabLineFill
-              :fg (. (fillBG) 1)
-              :bg (. (fillBG) 1)
-              :ctermfg (. (fillBG) 2)
-              :ctermbg (. (fillBG) 2)}
-             {:group :TabLineSel
-              :fg (. (selectionFG) 1)
-              :bg (. (selectionBG) 1)
-              :ctermfg (. (selectionFG) 2)
-              :ctermbg (. (selectionBG) 2)
-              :bold true}))
-       {:group :Title
-        :fg (. (auxBG) 1)
-        :bg :NONE
-        :ctermfg (. (auxBG) 2)
-        :ctermbg :NONE
-        :bold true}
-       {:group :Visual
-        :fg :SKIP
-        :bg (ucolors.darken (. (selectionBG) 1) 0.2)
-        :ctermfg :SKIP
-        :ctermbg (. (warningBG) 2)}
-       {:group :VisualNOS
-        :fg :SKIP
-        :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.5)
-        :ctermfg :SKIP
-        :ctermbg (. (warningBG) 2)}
-       ; Pmenu
-       {:group :Pmenu
-        :fg (. (fillFG) 1)
-        :bg (. (fillBG) 1)
-        :ctermfg (. (fillFG) 2)
-        :ctermbg (. (fillBG) 2)}
-       {:group :PmenuSel
-        :fg (. (selectionFG) 1)
-        :bg (. (selectionBG) 1)
-        :ctermfg (. (selectionFG) 2)
-        :ctermbg (. (selectionBG) 2)}
-       {:group :PmenuSbar
-        :fg (. (highlightFG) 1)
-        :bg (. (highlightBG) 1)
-        :ctermfg (. (highlightFG) 2)
-        :ctermbg (. (highlightBG) 2)}
-       {:group :PmenuThumb
-        :fg (. (selectionFG) 1)
-        :bg (. (selectionBG) 1)
-        :ctermfg (. (selectionFG) 2)
-        :ctermbg (. (selectionBG) 2)}
-       {:group :WildMenu
-        :fg (. (selectionFG) 1)
-        :bg (. (selectionBG) 1)
-        :ctermfg (. (selectionFG) 2)
-        :ctermbg (. (selectionBG) 2)}
-       {:group :Question
-        :fg (ucolors.blend (. (auxBG) 1) (. (mainFG) 1) 0.7)
-        :bg :SKIP
-        :ctermfg (. (auxBG) 3)
-        :ctermbg :SKIP
-        :bold true
-        :underline true
-        :sp (. (auxBG) 1)}
-       {:group :QuickFixLine
-        :fg :SKIP
-        :bg (. (selectionBG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (selectionBG) 2)}
-       ; Cursor
-       {:group :Cursor
-        :fg :SKIP
-        :bg (. (mainFG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (mainFG) 2)
-        :reverse true}
-       {:group :CursorIM
-        :fg :SKIP
-        :bg (. (umbraFG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (umbraFG) 2)
-        :reverse true}
-       {:group :lCursor
-        :fg :SKIP
-        :bg (. (shadowFG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (umbraFG) 2)
-        :reverse true}
-       {:group :CursorColumn
-        :fg :SKIP
-        :bg (. (shadowBG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (umbraBG) 2)}
-       {:group :CursorLine
-        :fg :SKIP
-        :bg (. (shadowBG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (umbraBG) 2)}
-       {:group :ColorColumn
-        :fg :NONE
-        :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.8)
-        :ctermfg :NONE
-        :ctermbg (. (selectionBG) 3)
-        :bold true}
-       {:group :TermCursor
-        :fg :SKIP
-        :bg (. (mainFG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (mainFG) 2)
-        :reverse true}
-       {:group :TermCursorNC
-        :fg :SKIP
-        :bg (. (umbraFG) 1)
-        :ctermfg :SKIP
-        :ctermbg (. (umbraFG) 2)
-        :reverse true}
-       {:group :ErrorMsg
-        :fg (. (errorFG) 1)
-        :bg (. (errorBG) 1)
-        :ctermfg (. (errorFG) 2)
-        :ctermbg (. (errorBG) 2)
-        :bold true}
-       {:group :WarningMsg
-        :fg (. (warningFG) 1)
-        :bg (. (warningBG) 1)
-        :ctermfg (. (warningFG) 2)
-        :ctermbg (. (warningBG) 2)}
-       {:group :VertSplit
-        :fg (. (shadowBG) 1)
-        :bg (. (shadowFG) 1)
-        :ctermfg (. (umbraBG) 2)
-        :ctermbg (. (umbraFG) 2)}
-       {:group :Folded
-        :fg (. (selectionFG) 1)
-        :bg (. (shadowBG) 1)
-        :ctermfg (. (selectionFG) 2)
-        :ctermbg (. (umbraBG) 2)
-        :bold true}
-       {:group :FoldColumn
-        :fg (. (selectionBG) 1)
-        :bg :NONE
-        :ctermfg (. (selectionBG) 2)
-        :ctermbg :NONE
-        :bold true}
-       {:group :SignColumn
-        :fg :NONE
-        :bg :NONE
-        :ctermfg :NONE
-        :ctermbg :NONE
-        :bold true}
-       {:group :IncSearch
-        :fg (. (mainFG) 1)
-        :bg (. (infoBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (infoBG) 2)
-        :reverse false}
-       {:group :Substitute
-        :fg (. (infoFG) 1)
-        :bg (ucolors.blend (. (infoBG) 1) (. (mainFG) 1) 0.7)
-        :ctermfg (. (infoFG) 2)
-        :ctermbg (. (infoBG) 3)}
-       {:group :Search
-        :fg (. (infoFG) 1)
-        :bg (ucolors.blend (. (infoBG) 1) (. (mainBG) 1) 0.7)
-        :ctermfg (. (infoFG) 2)
-        :ctermbg (. (infoBG) 2)}
-       {:group :LineNr
-        :fg (. (fillBG) 1)
-        :bg :SKIP
-        :ctermfg (. (fillBG) 2)
-        :ctermbg :SKIP}
-       {:group :CursorLineNr
-        :fg (ucolors.blend (. (fillBG) 1) (. (mainFG) 1) 0.6)
-        :bg :SKIP
-        :ctermfg (. (fillBG) 3)
-        :ctermbg :SKIP
-        :bold true}
-       {:group :ModeMsg
-        :fg (. (mainFG) 1)
-        :bg (. (shadowBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (umbraBG) 2)
-        :bold true}
-       {:group :MsgArea
-        :fg (. (mainFG) 1)
-        :bg (. (umbraBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (umbraBG) 2)}
-       {:group :MsgSeparator
-        :fg (. (mainFG) 1)
-        :bg (. (umbraBG) 1)
-        :ctermfg (. (mainFG) 2)
-        :ctermbg (. (umbraBG) 2)}
-       {:group :MoreMsg
-        :fg (. (auxBG) 1)
-        :bg :SKIP
-        :ctermfg (. (auxBG) 2)
-        :ctermbg :SKIP}
-       {:group :debugPC
-        :fg :SKIP
-        :bg (ucolors.blend (. (selectionBG) 1) (. (mainFG) 1) 0.6)
-        :ctermfg :SKIP
-        :ctermbg (. (selectionBG) 3)}
-       {:group :debugBreakpoint
-        :fg :SKIP
-        :bg (ucolors.blend (. (errorBG) 1) (. (mainFG) 1) 0.6)
-        :ctermfg :SKIP
-        :ctermbg (. (warningBG) 2)}
-       (if (= (vim.fn.has :gui) 1)
-           (do
-             {:group :Menu
-              :fg (. (mainFG) 1)
-              :bg (. (mainBG) 1)
-              :ctermfg (. (mainFG) 2)
-              :ctermbg (. (mainBG) 2)}
-             {:group :Tooltip
-              :fg (. (fillFG) 1)
-              :bg (. (fillBG) 1)
-              :ctermfg (. (fillFG) 2)
-              :ctermbg (. (fillBG) 2)}
-             {:group :Scrollbar
-              :fg (. (highlightFG) 1)
-              :bg (. (highlightBG) 1)
-              :ctermfg (. (highlightFG) 2)
-              :ctermbg (. (highlightBG) 2)}))])
+(defn high-colors [] [{:group :Normal
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.base.color
+                       :ctermfg 7
+                       :ctermbg 0}
+                      {:group :NormalNC
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.base.color
+                       :ctermfg 7
+                       :ctermbg 0}
+                      {:group :NormalFloat
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg 7
+                       :ctermbg 8}
+                      {:group :NonText
+                       :fg colors.kreative.fg.shadow.color
+                       :bg colors.kreative.bg.base.color
+                       :ctermfg 15
+                       :ctermbg 0}
+                      ;; TODO set match paren to TS rainbow?
+                      {:group :MatchParen
+                       :fg :SKIP
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg :SKIP
+                       :ctermbg 8
+                       :bold true}
+                      {:group :SpecialKey
+                       :fg colors.kreative.red.match_bg.color
+                       :bg :NONE
+                       :ctermfg 9
+                       :ctermbg :NONE
+                       :italic true}
+                      {:group :Whitespace
+                       :fg colors.kreative.fg.fifth.color
+                       :bg :SKIP
+                       :ctermfg 15
+                       :ctermbg :SKIP}
+                      {:group :EndOfBuffer
+                       :fg colors.kreative.fg.umbra.color
+                       :bg :SKIP
+                       :ctermfg 15
+                       :ctermbg :SKIP
+                       :bold true}
+                      {:group :Directory
+                       :fg colors.kreative.blue.mix_orange_match_fg.color
+                       :bg :SKIP
+                       :ctermfg 4
+                       :ctermbg :SKIP}
+                      {:group :Conceal
+                       :fg colors.kreative.bg.shadow.color
+                       :bg :NONE
+                       :ctermfg 8
+                       :ctermbg :NONE}
+                      ;; Spelling
+                      {:group :SpellBad
+                       :fg :SKIP
+                       :bg :SKIP
+                       :ctermfg :SKIP
+                       :ctermbg :NONE
+                       :undercurl true
+                       :sp colors.kreative.red.base.color}
+                      {:group :SpellCap
+                       :fg :SKIP
+                       :bg :SKIP
+                       :ctermfg :SKIP
+                       :ctermbg :NONE
+                       :undercurl true
+                       :sp colors.kreative.blue.base.color}
+                      {:group :SpellLocal
+                       :fg :SKIP
+                       :bg :SKIP
+                       :ctermfg :SKIP
+                       :ctermbg :NONE
+                       :undercurl true
+                       :sp colors.kreative.green.auto.color}
+                      {:group :SpellRare
+                       :fg :SKIP
+                       :bg :SKIP
+                       :ctermfg :SKIP
+                       :ctermbg :NONE
+                       :undercurl true
+                       :sp colors.kreative.pink.base.color}
+                      ;; Statusline
+                      {:group :StatusLine
+                       :fg colors.kreative.bg.fifth.color
+                       :bg colors.kreative.purple.match_bg.color
+                       :ctermfg 8
+                       :ctermbg 14
+                       :bold true}
+                      {:group :StatusLineNC
+                       :fg colors.kreative.purple.match_bg.color
+                       :bg colors.kreative.bg.fifth.color
+                       :ctermfg 8
+                       :ctermbg 14
+                       :bold true}
+                      ;; Tabline
+                      ;; Need to make the dark soft font brighter to match dark hard tabline
+                      {:group :TabLine
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.purple.base.color
+                       :ctermfg 7
+                       :ctermbg 6}
+                      {:group :TabLineFill
+                       :fg colors.kreative.pink.base.color
+                       :bg colors.kreative.pink.base.color
+                       :ctermfg 5
+                       :ctermbg 5}
+                      {:group :TabLineSel
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.blue.base.color
+                       :ctermfg 7
+                       :ctermbg 4
+                       :bold true}
+                      {:group :Title
+                       :fg colors.kreative.green.auto.color
+                       :bg :NONE
+                       :ctermfg 2
+                       :ctermbg :NONE
+                       :bold true}
+                      {:group :Visual
+                       :fg :SKIP
+                       :bg colors.kreative.blue.darken.color
+                       :ctermfg :SKIP
+                       :ctermbg 9}
+                      {:group :VisualNOS
+                       :fg :SKIP
+                       :bg colors.kreative.blue.match_fg.color
+                       :ctermfg :SKIP
+                       :ctermbg 9}
+                      ;; Pmenu
+                      {:group :Pmenu
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.pink.base.color
+                       :ctermfg 7
+                       :ctermbg 5}
+                      {:group :PmenuSel
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.blue.base.color
+                       :ctermfg 7
+                       :ctermbg 4}
+                      {:group :PmenuSbar
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.purple.base.color
+                       :ctermfg 7
+                       :ctermbg 6}
+                      {:group :PmenuThumb
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.blue.base.color
+                       :ctermfg 7
+                       :ctermbg 4}
+                      {:group :WildMenu
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.blue.base.color
+                       :ctermfg 7
+                       :ctermbg 4}
+                      {:group :Question
+                       :fg (ucolors.blend colors.kreative.green.auto.color
+                                          colors.kreative.fg.base.color 0.7)
+                       :bg :SKIP
+                       :ctermfg 10
+                       :ctermbg :SKIP
+                       :bold true
+                       :underline true
+                       :sp colors.kreative.green.auto.color}
+                      {:group :QuickFixLine
+                       :fg :SKIP
+                       :bg colors.kreative.blue.base.color
+                       :ctermfg :SKIP
+                       :ctermbg 4}
+                      ;; Cursor
+                      {:group :Cursor
+                       :fg :SKIP
+                       :bg colors.kreative.fg.auto.color
+                       :ctermfg :SKIP
+                       :ctermbg 7
+                       :reverse true}
+                      {:group :CursorIM
+                       :fg :SKIP
+                       :bg colors.kreative.fg.umbra.color
+                       :ctermfg :SKIP
+                       :ctermbg 15
+                       :reverse true}
+                      {:group :lCursor
+                       :fg :SKIP
+                       :bg colors.kreative.fg.shadow.color
+                       :ctermfg :SKIP
+                       :ctermbg 15
+                       :reverse true}
+                      {:group :CursorColumn
+                       :fg :SKIP
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg :SKIP
+                       :ctermbg 8}
+                      {:group :CursorLine
+                       :fg :SKIP
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg :SKIP
+                       :ctermbg 8}
+                      {:group :ColorColumn
+                       :fg :NONE
+                       :bg (ucolors.blend colors.kreative.blue.base.color
+                                          colors.kreative.fg.base.color 0.8)
+                       :ctermfg :NONE
+                       :ctermbg 12
+                       :bold true}
+                      {:group :TermCursor
+                       :fg :SKIP
+                       :bg colors.kreative.fg.auto.color
+                       :ctermfg :SKIP
+                       :ctermbg 7
+                       :reverse true}
+                      {:group :TermCursorNC
+                       :fg :SKIP
+                       :bg colors.kreative.fg.umbra.color
+                       :ctermfg :SKIP
+                       :ctermbg 15
+                       :reverse true}
+                      {:group :ErrorMsg
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.red.base.color
+                       :ctermfg 7
+                       :ctermbg 1
+                       :bold true}
+                      {:group :WarningMsg
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.red.match_bg.color
+                       :ctermfg 7
+                       :ctermbg 9}
+                      {:group :VertSplit
+                       :fg colors.kreative.bg.shadow.color
+                       :bg colors.kreative.fg.shadow.color
+                       :ctermfg 8
+                       :ctermbg 15}
+                      {:group :Folded
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg 7
+                       :ctermbg 8
+                       :bold true}
+                      {:group :FoldColumn
+                       :fg colors.kreative.blue.base.color
+                       :bg :NONE
+                       :ctermfg 4
+                       :ctermbg :NONE
+                       :bold true}
+                      {:group :SignColumn
+                       :fg :NONE
+                       :bg :NONE
+                       :ctermfg :NONE
+                       :ctermbg :NONE
+                       :bold true}
+                      {:group :IncSearch
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.orange.base.color
+                       :ctermfg 7
+                       :ctermbg 3
+                       :reverse false}
+                      {:group :Substitute
+                       :fg colors.kreative.bg.base.color
+                       :bg colors.kreative.orange.match_fg.color
+                       :ctermfg 7
+                       :ctermbg 11}
+                      {:group :Search
+                       :fg colors.kreative.bg.base.color
+                       :bg colors.kreative.orange.match_bg.color
+                       :ctermfg 7
+                       :ctermbg 3}
+                      {:group :LineNr
+                       :fg colors.kreative.pink.base.color
+                       :bg :SKIP
+                       :ctermfg 5
+                       :ctermbg :SKIP}
+                      {:group :CursorLineNr
+                       :fg colors.kreative.pink.match_fg.color
+                       :bg :SKIP
+                       :ctermfg 13
+                       :ctermbg :SKIP
+                       :bold true}
+                      {:group :ModeMsg
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg 7
+                       :ctermbg 8
+                       :bold true}
+                      {:group :MsgArea
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.umbra.color
+                       :ctermfg 7
+                       :ctermbg 8}
+                      {:group :MsgSeparator
+                       :fg colors.kreative.fg.auto.color
+                       :bg colors.kreative.bg.umbra.color
+                       :ctermfg 7
+                       :ctermbg 8}
+                      {:group :MoreMsg
+                       :fg colors.kreative.green.auto.color
+                       :bg :SKIP
+                       :ctermfg 2
+                       :ctermbg :SKIP}
+                      {:group :debugPC
+                       :fg :SKIP
+                       :bg colors.kreative.blue.match_fg.color
+                       :ctermfg :SKIP
+                       :ctermbg 12}
+                      {:group :debugBreakpoint
+                       :fg :SKIP
+                       :bg colors.kreative.red.match_fg.color
+                       :ctermfg :SKIP
+                       :ctermbg 9}
+                      (fn []
+                        (if (do-viml has :gui)
+                            (values
+                              {:group :Menu
+                               :fg colors.kreative.fg.auto.color
+                               :bg colors.kreative.bg.base.color
+                               :ctermfg 7
+                               :ctermbg 0}
+                              {:group :Tooltip
+                               :fg colors.kreative.fg.auto.color
+                               :bg colors.kreative.pink.base.color
+                               :ctermfg 7
+                               :ctermbg 5}
+                              {:group :Scrollbar
+                               :fg colors.kreative.fg.auto.color
+                               :bg colors.kreative.purple.base.color
+                               :ctermfg 7
+                               :ctermbg 6})))])
 
 (defn init [] (run.highlight$<-table (high-colors)))

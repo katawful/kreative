@@ -5,12 +5,12 @@
                    run kreative.utils.highlight.run
                    groups kreative.highlights.main}})
 
-; This handles nvim-cmp
+;;; This handles nvim-cmp
 
 (defn high-colors [] [{:group :CmpItemKind
-                       :fg (. (groups.selectionBG) 1)
-                       :bg (ucolors.brighten (. (groups.fillBG) 1) 0.1)
-                       :ctermfg (. (groups.selectionBG) 2)
-                       :ctermbg (. (groups.fillBG) 2)}])
+                       :fg colors.kreative.blue.base.color
+                       :bg (ucolors.brighten colors.kreative.pink.base.color 0.1)
+                       :ctermfg 4
+                       :ctermbg 5}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

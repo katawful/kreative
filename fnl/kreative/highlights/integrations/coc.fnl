@@ -5,71 +5,71 @@
                    run kreative.utils.highlight.run
                    groups kreative.highlights.main}})
 
-; This handles coc.nvim colors
+;;; This handles coc.nvim colors
 
 (defn high-colors [] [{:group :CocErrorSign
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kreative.red.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.errorBG) 2)
+                       :ctermfg 1
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocWarningSign
-                       :fg (. (groups.warningBG) 1)
+                       :fg colors.kreative.red.match_bg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.warningBG) 2)
+                       :ctermfg 9
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocInfoSign
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kreative.orange.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.infoBG) 2)
+                       :ctermfg 3
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocHintSign
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kreative.green.auto.color
                        :bg :SKIP
-                       :ctermfg (. (groups.auxBG) 2)
+                       :ctermfg 2
                        :ctermbg :SKIP
                        :bold true}
                       {:group :CocErrorFloat
-                       :fg (. (groups.errorBG) 1)
-                       :bg (. (groups.umbraBG) 1)
-                       :ctermfg (. (groups.errorBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :fg colors.kreative.red.base.color
+                       :bg colors.kreative.bg.umbra.color
+                       :ctermfg 1
+                       :ctermbg 8}
                       {:group :CocWarningFloat
-                       :fg (. (groups.warningBG) 1)
-                       :bg (. (groups.umbraBG) 1)
-                       :ctermfg (. (groups.warningBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :fg colors.kreative.red.match_bg.color
+                       :bg colors.kreative.bg.umbra.color
+                       :ctermfg 9
+                       :ctermbg 8}
                       {:group :CocInfoFloat
-                       :fg (. (groups.infoBG) 1)
-                       :bg (. (groups.umbraBG) 1)
-                       :ctermfg (. (groups.infoBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :fg colors.kreative.orange.base.color
+                       :bg colors.kreative.bg.umbra.color
+                       :ctermfg 3
+                       :ctermbg 8}
                       {:group :CocHintFloat
-                       :fg (. (groups.auxBG) 1)
-                       :bg (. (groups.umbraBG) 1)
-                       :ctermfg (. (groups.auxBG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :fg colors.kreative.green.auto.color
+                       :bg colors.kreative.bg.umbra.color
+                       :ctermfg 2
+                       :ctermbg 8}
                       {:group :CocDiagnosticsError
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kreative.red.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.errorBG) 2)
+                       :ctermfg 1
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsWarning
-                       :fg (. (groups.warningBG) 1)
+                       :fg colors.kreative.red.match_bg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.warningBG) 2)
+                       :ctermfg 9
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsInfo
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kreative.orange.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.infoBG) 2)
+                       :ctermfg 3
                        :ctermbg :SKIP}
                       {:group :CocDiagnosticsHint
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kreative.green.auto.color
                        :bg :SKIP
-                       :ctermfg (. (groups.auxBG) 2)
+                       :ctermfg 2
                        :ctermbg :SKIP}
                       {:group :CocErrorHighlight
                        :fg :SKIP
@@ -77,38 +77,37 @@
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.errorBG) 1)}
+                       :sp colors.kreative.red.base.color}
                       {:group :CocWarningHighlight
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.warningBG) 1)}
+                       :sp colors.kreative.red.match_bg.color}
                       {:group :CocInfoHighlight
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.infoBG) 1)}
+                       :sp colors.kreative.orange.base.color}
                       {:group :CocHintHighlight
                        :fg :SKIP
                        :bg :SKIP
                        :ctermfg :SKIP
                        :ctermbg :NONE
                        :undercurl true
-                       :sp (. (groups.auxBG) 1)}
+                       :sp colors.kreative.green.auto.color}
                       {:group :CocSelectedText
                        :fg :SKIP
-                       :bg (ucolors.darken (. (colors.init :normalColors) :red)
-                                           0.2)
+                       :bg colors.kreative.red.darken.color
                        :ctermfg :SKIP
-                       :ctermbg (. (groups.warningBG) 2)}
+                       :ctermbg 9}
                       {:group :CocCodeLens
-                       :fg (. (groups.meldBG) 1)
+                       :fg colors.kreative.bg.meld.color
                        :bg :SKIP
-                       :ctermfg (. (groups.umbraFG) 2)
+                       :ctermfg 15
                        :ctermbg :SKIP}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

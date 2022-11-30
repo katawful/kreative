@@ -8,87 +8,79 @@
 ; this handles vimwiki
 
 (defn high-colors [] [{:group :VimwikiMarkers
-                       :fg (. (colors.init :background) 5)
+                       :fg colors.kreative.bg.fifth.color
                        :bg :SKIP
-                       :ctermfg (. (groups.mainFG) 2)
+                       :ctermfg 7
                        :ctermbg :SKIP}
                       {:group :VimwikiLink
-                       :fg (. (groups.infoBG) 1)
+                       :fg colors.kreative.orange.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.infoBG) 2)
+                       :ctermfg 3
                        :ctermbg :SKIP
                        :bold true
                        :underline true
-                       :sp (. (groups.infoBG) 1)}
+                       :sp colors.kreative.orange.base.color}
                       {:group :VimwikiList
-                       :fg (. (groups.selectionBG) 1)
+                       :fg colors.kreative.blue.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermfg 4
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiCheckBoxDone
-                       :fg (. (groups.auxBG) 1)
+                       :fg colors.kreative.green.auto.color
                        :bg :SKIP
-                       :ctermfg (. (groups.auxBG) 2)
+                       :ctermfg 2
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiTag
-                       :fg (. (groups.errorBG) 1)
+                       :fg colors.kreative.red.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.errorBG) 2)
+                       :ctermfg 1
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiDelText
-                       :fg (. (groups.fillBG) 1)
+                       :fg colors.kreative.pink.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.fillBG) 2)
+                       :ctermfg 5
                        :ctermbg :SKIP
                        :strikethrough true}
                       {:group :VimwikiCode
-                       :fg (. (groups.meldFG) 1)
-                       :bg (. (groups.shadowBG) 1)
-                       :ctermfg (. (groups.umbraFG) 2)
-                       :ctermbg (. (groups.umbraBG) 2)}
+                       :fg colors.kreative.fg.meld.color
+                       :bg colors.kreative.bg.shadow.color
+                       :ctermfg 15
+                       :ctermbg 8}
                       {:group :VimwikiHeader1
-                       :fg (ucolors.darken (. (colors.init :normalColors) :blue)
-                                           0.0)
+                       :fg (ucolors.darken colors.kreative.blue.base.color 0.0)
                        :bg :SKIP
                        :ctermfg 4
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader2
-                       :fg (ucolors.darken (. (colors.init :normalColors) :blue)
-                                           0.3)
+                       :fg (ucolors.darken colors.kreative.blue.base.color 0.3)
                        :bg :SKIP
                        :ctermfg 12
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader3
-                       :fg (ucolors.darken (. (colors.init :normalColors)
-                                              :orange)
-                                           0.0)
+                       :fg (ucolors.darken colors.kreative.orange.base.color 0.0)
                        :bg :SKIP
                        :ctermfg 3
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader4
-                       :fg (ucolors.darken (. (colors.init :normalColors)
-                                              :orange)
-                                           0.3)
+                       :fg (ucolors.darken colors.kreative.orange.base.color 0.3)
                        :bg :SKIP
                        :ctermfg 11
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader5
-                       :fg (ucolors.darken (. (colors.init :normalColors) :pink)
-                                           0.0)
+                       :fg (ucolors.darken colors.kreative.pink.base.color 0.0)
                        :bg :SKIP
                        :ctermfg 5
                        :ctermbg :SKIP
                        :bold true}
                       {:group :VimwikiHeader6
-                       :fg (ucolors.darken (. (colors.init :normalColors) :pink)
-                                           0.3)
+                       :fg (ucolors.darken colors.kreative.pink.base.color 0.3)
                        :bg :SKIP
                        :ctermfg 13
                        :ctermbg :SKIP

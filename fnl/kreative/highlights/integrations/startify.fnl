@@ -5,59 +5,56 @@
                    run kreative.utils.highlight.run
                    groups kreative.highlights.main}})
 
-; This handles Startify
+;;; This handles Startify
 
 (defn high-colors [] [{:group :StartifyBracket
-                       :fg (ucolors.blend (. (groups.selectionBG) 1)
-                                          (. (groups.meldBG) 1) 0.5)
+                       :fg colors.kreative.blue.mix_meld_bg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermfg 4
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifyFile
-                       :fg (ucolors.blend (. (groups.highlightBG) 1)
-                                          (. (groups.mainFG) 1) 0.8)
+                       :fg colors.kreative.purple.match_fg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.highlightBG) 2)
+                       :ctermfg 6
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifyNumber
-                       :fg (. (groups.selectionBG) 1)
+                       :fg colors.kreative.blue.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermfg 4
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifyPath
-                       :fg (. (colors.init :background) 6)
+                       :fg colors.kreative.bg.sixth.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermfg 4
                        :ctermbg :SKIP}
                       {:group :StartifySlash
-                       :fg (. (colors.init :foreground) 4)
+                       :fg colors.kreative.fg.meld.color
                        :bg :SKIP
-                       :ctermfg (. (groups.mainFG) 2)
+                       :ctermfg 7
                        :ctermbg :SKIP}
                       {:group :StartifySection
-                       :fg (ucolors.blend (. (colors.init :normalColors) :red)
-                                          (. (groups.mainFG) 1) 0.8)
+                       :fg colors.kreative.red.match_fg.color
                        :bg :SKIP
-                       :ctermfg (. (groups.warningBG) 2)
+                       :ctermfg 9
                        :ctermbg :SKIP
                        :bold true}
                       {:group :StartifySpecial
-                       :fg (. (colors.init :background) 6)
+                       :fg colors.kreative.bg.sixth.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 3)
+                       :ctermfg 12
                        :ctermbg :SKIP}
                       {:group :StartifyHeader
-                       :fg (. (groups.fillBG) 1)
+                       :fg colors.kreative.pink.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.fillBG) 2)
+                       :ctermfg 5
                        :ctermbg :SKIP}
                       {:group :StartifyFooter
-                       :fg (. (colors.init :background) 4)
+                       :fg colors.kreative.bg.meld.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermfg 4
                        :ctermbg :SKIP}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

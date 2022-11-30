@@ -9,43 +9,41 @@
 
 (defn high-colors []
       [{:group :vimCommentTitle
-        :fg (. (groups.shadowBG) 1)
-        :bg (. (groups.shadowFG) 1)
-        :ctermfg (. (groups.umbraBG) 2)
-        :ctermbg (. (groups.umbraFG) 2)
+        :fg colors.kreative.bg.shadow.color
+        :bg colors.kreative.fg.shadow.color
+        :ctermfg 8
+        :ctermbg 15
         :bold true
         :italic true}
        {:group :vimBracket
-        :fg (ucolors.blend (. (colors.init :normalColors) :pink)
-                           (. (groups.mainFG) 1) 0.7)
+        :fg colors.kreative.pink.match_fg.color
         :bg :SKIP
-        :ctermfg (. (groups.fillBG) 2)
+        :ctermfg 5
         :ctermbg :SKIP}
        {:group :vimMapModKey
-        :fg (ucolors.blend (. (colors.init :normalColors) :pink)
-                           (. (groups.mainFG) 1) 0.8)
+        :fg colors.kreative.pink.match_fg.color
         :bg :SKIP
-        :ctermfg (. (groups.fillBG) 2)
+        :ctermfg 5
         :ctermbg :SKIP}
        {:group :vimFuncSID
-        :fg (. (groups.umbraFG) 1)
+        :fg colors.kreative.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimSetSep
-        :fg (. (groups.umbraFG) 1)
+        :fg colors.kreative.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimSep
-        :fg (. (groups.umbraFG) 1)
+        :fg colors.kreative.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimContinue
-        :fg (. (groups.umbraFG) 1)
+        :fg colors.kreative.fg.umbra.color
         :bg :SKIP
-        :ctermfg (. (groups.umbraFG) 2)
+        :ctermfg 15
         :ctermbg :SKIP}
        {:group :vimOperParen :link :Variable}
        {:group :vimFunction :link :Function}

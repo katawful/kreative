@@ -18,7 +18,7 @@ _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["syntax"] = syntax
 _2amodule_locals_2a["ucolors"] = ucolors
 local function high_colors()
-  return {{group = "IndentBlanklineChar", fg = groups.shadowBG()[1], bg = "SKIP", ctermfg = groups.umbraBG()[2], ctermbg = "SKIP", nocombine = true}, {group = "IndentBlanklineSpaceChar", fg = groups.shadowBG()[1], bg = "SKIP", ctermfg = groups.umbraBG()[2], ctermbg = "SKIP", nocombine = true}, {group = "IndentBlanklineSpaceChar", fg = groups.shadowBG()[1], bg = "SKIP", ctermfg = groups.umbraBG()[2], ctermbg = "SKIP", nocombine = true}, {group = "IndentBlanklineContextChar", fg = groups.selectionBG()[1], bg = "SKIP", ctermfg = groups.selectionBG()[2], ctermbg = "SKIP", nocombine = true}}
+  return {{group = "IndentBlanklineChar", fg = colors.kreative.bg.shadow.color, bg = "SKIP", ctermfg = 8, ctermbg = "SKIP", nocombine = true}, {group = "IndentBlanklineSpaceChar", fg = colors.kreative.bg.shadow.color, bg = "SKIP", ctermfg = 8, ctermbg = "SKIP", nocombine = true}, {group = "IndentBlanklineSpaceChar", fg = colors.kreative.bg.shadow.color, bg = "SKIP", ctermfg = 8, ctermbg = "SKIP", nocombine = true}, {group = "IndentBlanklineContextChar", fg = colors.kreative.blue.base.color, bg = "SKIP", ctermfg = 4, ctermbg = "SKIP", nocombine = true}}
 end
 _2amodule_2a["high-colors"] = high_colors
 local function init()

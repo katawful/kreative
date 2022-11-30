@@ -7,15 +7,15 @@
 
 (defn high-colors [] [{:group :fugitiveHunk
                        :fg :SKIP
-                       :bg (. (groups.shadowBG) 1)
+                       :bg colors.kreative.bg.shadow.color
                        :ctermfg :SKIP
-                       :ctermbg (. (groups.umbraBG) 2)
+                       :ctermbg 8
                        :nocombine true}
                       {:group :gitDiff
                        :fg :SKIP
-                       :bg (. (groups.shadowBG) 1)
+                       :bg colors.kreative.bg.shadow.color
                        :ctermfg :SKIP
-                       :ctermbg (. (groups.umbraBG) 2)
+                       :ctermbg 8
                        :nocombine true}])
 
 (defn init [] (run.highlight$<-table (high-colors)))

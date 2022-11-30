@@ -6,27 +6,27 @@
                    groups kreative.highlights.main}})
 
 (defn high-colors [] [{:group :IndentBlanklineChar
-                       :fg (. (groups.shadowBG) 1)
+                       :fg colors.kreative.bg.shadow.color
                        :bg :SKIP
-                       :ctermfg (. (groups.umbraBG) 2)
+                       :ctermfg 8
                        :ctermbg :SKIP
                        :nocombine true}
                       {:group :IndentBlanklineSpaceChar
-                       :fg (. (groups.shadowBG) 1)
+                       :fg colors.kreative.bg.shadow.color
                        :bg :SKIP
-                       :ctermfg (. (groups.umbraBG) 2)
+                       :ctermfg 8
                        :ctermbg :SKIP
                        :nocombine true}
                       {:group :IndentBlanklineSpaceChar
-                       :fg (. (groups.shadowBG) 1)
+                       :fg colors.kreative.bg.shadow.color
                        :bg :SKIP
-                       :ctermfg (. (groups.umbraBG) 2)
+                       :ctermfg 8
                        :ctermbg :SKIP
                        :nocombine true}
                       {:group :IndentBlanklineContextChar
-                       :fg (. (groups.selectionBG) 1)
+                       :fg colors.kreative.blue.base.color
                        :bg :SKIP
-                       :ctermfg (. (groups.selectionBG) 2)
+                       :ctermfg 4
                        :ctermbg :SKIP
                        :nocombine true}])
 
