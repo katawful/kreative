@@ -11,13 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local a, colors, errors, export, groups, hsl, main, ucolors = autoload("kreative.aniseed.core"), autoload("kreative.color"), autoload("kreative.utils.errors"), autoload("kreative.utils.export.init"), autoload("kreative.highlights.main"), autoload("externals.hsluv"), autoload("kreative.main"), autoload("kreative.utils.highlight.utils")
-do end (_2amodule_locals_2a)["a"] = a
-_2amodule_locals_2a["colors"] = colors
-_2amodule_locals_2a["errors"] = errors
+local colors, export, groups, main, ucolors = autoload("kreative.color"), autoload("kreative.utils.export.init"), autoload("kreative.highlights.main"), autoload("kreative.main"), autoload("kreative.utils.highlight.utils")
+do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["export"] = export
 _2amodule_locals_2a["groups"] = groups
-_2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local loop = vim.loop
@@ -25,27 +22,27 @@ _2amodule_locals_2a["loop"] = loop
 local comment_type = "#"
 _2amodule_2a["comment-type"] = comment_type
 local function gen_colors()
-  local output = {foreground = groups.mainFG()[1], background = groups.mainBG()[1], selection_foreground = groups.selectionFG()[1], selection_background = groups.selectionBG()[1], contrast = main.configs.contrast, shade = vim.o.background, cursor = (groups.mainFG()[1])[1], cursor_text_color = "background", color0 = groups.mainBG()[1], color1 = (colors["normal-colors"]()).red, color2 = (colors["normal-colors"]()).green, color3 = (colors["normal-colors"]()).orange, color4 = (colors["normal-colors"]()).blue, color5 = (colors["normal-colors"]()).pink, color6 = (colors["normal-colors"]()).purple, color7 = groups.mainFG()[1], color8 = groups.umbraBG()[1], color15 = groups.umbraFG()[1]}
-  if (vim.o.background == "light") then
-    output["color9"] = ucolors.darken((colors["normal-colors"]()).red, 0.2)
-    do end (output)["color10"] = ucolors.darken((colors["normal-colors"]()).green, 0.2)
-    do end (output)["color11"] = ucolors.darken((colors["normal-colors"]()).orange, 0.2)
-    do end (output)["color12"] = ucolors.darken((colors["normal-colors"]()).blue, 0.2)
-    do end (output)["color13"] = ucolors.darken((colors["normal-colors"]()).pink, 0.2)
-    do end (output)["color14"] = ucolors.darken((colors["normal-colors"]()).purple, 0.2)
+  local output = {foreground = colors.kreative.fg.auto.color, background = colors.kreative.bg.base.color, selection_foreground = colors.kreative.fg.auto.color, selection_background = colors.kreative.blue.base.color, cursor = colors.kreative.fg.auto.color, cursor_text_color = colors.kreative.bg.base.color, url_color = colors.kreative.orange.base.color, active_border_color = colors.kreative.blue.base.color, inactive_border_color = colors.kreative.bg.meld.color, bell_border_color = colors.kreative.green.auto.color, active_tab_foreground = colors.kreative.fg.auto.color, active_tab_background = colors.kreative.blue.base.color, inactive_tab_foreground = colors.kreative.fg.auto.color, inactive_tab_background = ucolors.blend(colors.kreative.purple.base.color, colors.kreative.bg.meld.color, 0.5), tab_bar_background = colors.kreative.pink.base.color, tab_bar_margin_color = colors.kreative.orange.base.color, mark1_foreground = colors.kreative.bg.base.color, mark1_background = colors.kreative.red.base.color, mark2_foreground = colors.kreative.bg.base.color, mark2_background = colors.kreative.blue.base.color, mark3_foreground = colors.kreative.bg.base.color, mark3_background = colors.kreative.green.auto.color, color0 = colors.kreative.bg.base.color, color1 = colors.kreative.red.base.color, color2 = colors.kreative.green.base.color, color3 = colors.kreative.orange.base.color, color4 = colors.kreative.blue.base.color, color5 = colors.kreative.pink.base.color, color6 = colors.kreative.purple.base.color, color7 = colors.kreative.fg.auto.color, color8 = colors.kreative.bg.umbra.color, color15 = colors.kreative.fg.umbra.color}
+  if (main.configs.background == "light") then
+    output["color9"] = ucolors.darken(colors.kreative.red.base.color, 0.2)
+    do end (output)["color10"] = ucolors.darken(colors.kreative.green.base.color, 0.2)
+    do end (output)["color11"] = ucolors.darken(colors.kreative.orange.base.color, 0.2)
+    do end (output)["color12"] = ucolors.darken(colors.kreative.blue.base.color, 0.2)
+    do end (output)["color13"] = ucolors.darken(colors.kreative.pink.base.color, 0.2)
+    do end (output)["color14"] = ucolors.darken(colors.kreative.purple.base.color, 0.2)
   else
-    output["color9"] = ucolors.brighten((colors["normal-colors"]()).red, 0.2)
-    do end (output)["color10"] = ucolors.brighten((colors["normal-colors"]()).green, 0.2)
-    do end (output)["color11"] = ucolors.brighten((colors["normal-colors"]()).orange, 0.2)
-    do end (output)["color12"] = ucolors.brighten((colors["normal-colors"]()).blue, 0.2)
-    do end (output)["color13"] = ucolors.brighten((colors["normal-colors"]()).pink, 0.2)
-    do end (output)["color14"] = ucolors.brighten((colors["normal-colors"]()).purple, 0.2)
+    output["color9"] = ucolors.brighten(colors.kreative.red.base.color, 0.2)
+    do end (output)["color10"] = ucolors.brighten(colors.kreative.green.base.color, 0.2)
+    do end (output)["color11"] = ucolors.brighten(colors.kreative.orange.base.color, 0.2)
+    do end (output)["color12"] = ucolors.brighten(colors.kreative.blue.base.color, 0.2)
+    do end (output)["color13"] = ucolors.brighten(colors.kreative.pink.base.color, 0.2)
+    do end (output)["color14"] = ucolors.brighten(colors.kreative.purple.base.color, 0.2)
   end
   return output
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local file_name = string.format("kitty-%s-%s.conf", tostring(vim.g.colors_name), tostring(vim.o.background))
+  local file_name = string.format("kitty-%s-%s.conf", tostring(main.configs.colors_name), tostring(main.configs.background))
   local fd = assert(loop.fs_open(file_name, "w", 0))
   assert(loop.fs_chmod(file_name, 420))
   assert(loop.fs_write(fd, export["string->one-line-color"](gen_colors(), "kitty"), 0))

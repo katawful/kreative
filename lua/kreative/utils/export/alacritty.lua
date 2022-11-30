@@ -11,13 +11,10 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local a, colors, errors, export, groups, hsl, main, ucolors = autoload("kreative.aniseed.core"), autoload("kreative.color"), autoload("kreative.utils.errors"), autoload("kreative.utils.export.init"), autoload("kreative.highlights.main"), autoload("externals.hsluv"), autoload("kreative.main"), autoload("kreative.utils.highlight.utils")
-do end (_2amodule_locals_2a)["a"] = a
-_2amodule_locals_2a["colors"] = colors
-_2amodule_locals_2a["errors"] = errors
+local colors, export, groups, main, ucolors = autoload("kreative.color"), autoload("kreative.utils.export.init"), autoload("kreative.highlights.main"), autoload("kreative.main"), autoload("kreative.utils.highlight.utils")
+do end (_2amodule_locals_2a)["colors"] = colors
 _2amodule_locals_2a["export"] = export
 _2amodule_locals_2a["groups"] = groups
-_2amodule_locals_2a["hsl"] = hsl
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["ucolors"] = ucolors
 local loop = vim.loop
@@ -26,37 +23,38 @@ local comment_type = "#"
 _2amodule_2a["comment-type"] = comment_type
 local function gen_colors()
   local white
-  if (vim.o.background == "light") then
-    white = ("'" .. colors.background()[1] .. "'")
+  if (main.configs.background == "light") then
+    white = ("'" .. colors.kreative.bg.base.color .. "'")
   else
-    white = ("'" .. colors.foreground()[1] .. "'")
+    white = ("'" .. colors.kreative.fg.base.color .. "'")
   end
   local black
-  if (vim.o.background == "light") then
-    black = ("'" .. colors.foreground()[1] .. "'")
+  if (main.configs.background == "light") then
+    black = ("'" .. colors.kreative.fg.base.color .. "'")
   else
-    black = ("'" .. colors.background()[1] .. "'")
+    black = ("'" .. colors.kreative.bg.base.color .. "'")
   end
-  local cyan = ("'" .. ucolors.brighten(groups.selectionBG()[1], 0.3) .. "'")
+  local cyan = ("'" .. ucolors.brighten(colors.kreative.blue.base.color, 0.3) .. "'")
+  local char = "'"
   local output
   local _3_
-  if (vim.o.background == "light") then
-    _3_ = {["  black:"] = ("'" .. groups.umbraFG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. groups.umbraBG()[1] .. "'")}
+  if (main.configs.background == "light") then
+    _3_ = {["  black:"] = (char .. colors.kreative.fg.umbra.color .. char), ["  red:"] = (char .. ucolors.darken(colors.kreative.red.base.color, 0.2) .. char), ["  green:"] = (char .. ucolors.darken(colors.kreative.green.base.color, 0.2) .. char), ["  yellow:"] = (char .. ucolors.darken(colors.kreative.orange.base.color, 0.2) .. char), ["  blue:"] = (char .. ucolors.darken(colors.kreative.blue.base.color, 0.2) .. char), ["  magenta:"] = (char .. ucolors.darken(colors.kreative.pink.base.color, 0.2) .. char), ["  cyan:"] = (char .. ucolors.darken(colors.kreative.purple.base.color, 0.2) .. char), ["  white:"] = (char .. colors.kreative.bg.umbra.color .. char)}
   else
-    _3_ = {["  black:"] = ("'" .. groups.umbraBG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. groups.umbraFG()[1] .. "'")}
+    _3_ = {["  black:"] = (char .. colors.kreative.bg.umbra.color .. char), ["  red:"] = (char .. ucolors.brighten(colors.kreative.red.base.color, 0.2) .. char), ["  green:"] = (char .. ucolors.brighten(colors.kreative.green.base.color, 0.2) .. char), ["  yellow:"] = (char .. ucolors.brighten(colors.kreative.orange.base.color, 0.2) .. char), ["  blue:"] = (char .. ucolors.brighten(colors.kreative.blue.base.color, 0.2) .. char), ["  magenta:"] = (char .. ucolors.brighten(colors.kreative.pink.base.color, 0.2) .. char), ["  cyan:"] = (char .. ucolors.brighten(colors.kreative.purple.base.color, 0.2) .. char), ["  white:"] = (char .. colors.kreative.fg.umbra.color .. char)}
   end
   local _5_
-  if (vim.o.background == "dark") then
-    _5_ = {["  black:"] = ("'" .. groups.meldFG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.darken((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. groups.meldBG()[1] .. "'")}
+  if (main.configs.background == "dark") then
+    _5_ = {["  black:"] = (char .. colors.kreative.fg.meld.color .. char), ["  red:"] = (char .. ucolors.darken(colors.kreative.red.base.color, 0.2) .. char), ["  green:"] = (char .. ucolors.darken(colors.kreative.green.base.color, 0.2) .. char), ["  yellow:"] = (char .. ucolors.darken(colors.kreative.orange.base.color, 0.2) .. char), ["  blue:"] = (char .. ucolors.darken(colors.kreative.blue.base.color, 0.2) .. char), ["  magenta:"] = (char .. ucolors.darken(colors.kreative.pink.base.color, 0.2) .. char), ["  cyan:"] = (char .. ucolors.darken(colors.kreative.purple.base.color, 0.2) .. char), ["  white:"] = (char .. colors.kreative.bg.meld.color .. char)}
   else
-    _5_ = {["  black:"] = ("'" .. groups.meldBG()[1] .. "'"), ["  red:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).red, 0.2) .. "'"), ["  green:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).green, 0.2) .. "'"), ["  yellow:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).orange, 0.2) .. "'"), ["  blue:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).blue, 0.2) .. "'"), ["  magenta:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).pink, 0.2) .. "'"), ["  cyan:"] = ("'" .. ucolors.brighten((colors["normal-colors"]()).purple, 0.2) .. "'"), ["  white:"] = ("'" .. ("'" .. groups.meldFG()[1] .. "'"))}
+    _5_ = {["  black:"] = (char .. colors.kreative.bg.meld.color .. char), ["  red:"] = (char .. ucolors.brighten(colors.kreative.red.base.color, 0.2) .. char), ["  green:"] = (char .. ucolors.brighten(colors.kreative.green.base.color, 0.2) .. char), ["  yellow:"] = (char .. ucolors.brighten(colors.kreative.orange.base.color, 0.2) .. char), ["  blue:"] = (char .. ucolors.brighten(colors.kreative.blue.base.color, 0.2) .. char), ["  magenta:"] = (char .. ucolors.brighten(colors.kreative.pink.base.color, 0.2) .. char), ["  cyan:"] = (char .. ucolors.brighten(colors.kreative.purple.base.color, 0.2) .. char), ["  white:"] = (char .. (char .. colors.kreative.fg.meld.color .. char))}
   end
-  output = {["colors:"] = {[" primary:"] = {["  background:"] = ("'" .. groups.mainBG()[1] .. "'"), ["  foreground:"] = ("'" .. groups.mainFG()[1] .. "'"), ["  dim_foreground:"] = ("'" .. groups.umbraFG()[1] .. "'"), ["  bright_foreground:"] = ("'" .. groups.meldFG()[1] .. "'"), ["  dim_background:"] = ("'" .. groups.umbraBG()[1] .. "'"), ["  bright_background:"] = ("'" .. groups.meldBG()[1] .. "'")}, [" cursor:"] = {["  text:"] = ("'" .. groups.mainBG()[1] .. "'"), ["  cursor:"] = ("'" .. groups.mainFG()[1] .. "'")}, [" normal:"] = {["  black:"] = black, ["  red:"] = ("'" .. (colors["normal-colors"]()).red .. "'"), ["  blue:"] = ("'" .. (colors["normal-colors"]()).blue .. "'"), ["  green:"] = ("'" .. (colors["normal-colors"]()).green .. "'"), ["  yellow:"] = ("'" .. (colors["normal-colors"]()).orange .. "'"), ["  cyan:"] = ("'" .. (colors["normal-colors"]()).purple .. "'"), ["  magenta:"] = ("'" .. (colors["normal-colors"]()).pink .. "'"), ["  white:"] = white}, [" bright:"] = _3_, [" dim:"] = _5_, [" selection:"] = {["  text:"] = "CellBackground", ["  background:"] = ("'" .. groups.selectionBG()[1] .. "'")}}}
+  output = {["colors:"] = {[" primary:"] = {["  background:"] = (char .. colors.kreative.bg.base.color .. char), ["  foreground:"] = (char .. colors.kreative.fg.auto.color .. char), ["  dim_foreground:"] = (char .. colors.kreative.fg.umbra.color .. char), ["  bright_foreground:"] = (char .. colors.kreative.fg.meld.color .. char), ["  dim_background:"] = (char .. colors.kreative.bg.umbra.color .. char), ["  bright_background:"] = (char .. colors.kreative.bg.meld.color .. char)}, [" cursor:"] = {["  text:"] = (char .. colors.kreative.bg.base.color .. char), ["  cursor:"] = (char .. colors.kreative.fg.auto.color .. char)}, [" search:"] = {["  matches:"] = {["   foreground:"] = (char .. colors.kreative.bg.base.color .. char), ["   background:"] = (char .. ucolors.blend(colors.kreative.orange.base.color, colors.kreative.bg.base.color, 0.7) .. char)}, ["  focused_match:"] = {["   foreground:"] = (char .. colors.kreative.bg.base.color .. char), ["   background:"] = (char .. colors.kreative.orange.base.color .. char)}}, [" hints:"] = {["  start:"] = {["   foreground:"] = (char .. colors.kreative.fg.auto.color .. char), ["   background:"] = (char .. ucolors.blend(colors.kreative.bg.meld.color, colors.kreative.green.auto.color, 0.2) .. char)}, ["  end:"] = {["   foreground:"] = (char .. colors.kreative.fg.auto.color .. char), ["   background:"] = (char .. colors.kreative.green.auto.color .. char)}}, [" line_indicator:"] = {["   foreground:"] = "None", ["   background:"] = "None"}, [" footer_bar:"] = {["   foreground:"] = (char .. colors.kreative.fg.auto.color .. char), ["   background:"] = (char .. colors.kreative.pink.base.color .. char)}, [" normal:"] = {["  black:"] = black, ["  red:"] = (char .. colors.kreative.red.base.color .. char), ["  blue:"] = (char .. colors.kreative.blue.base.color .. char), ["  green:"] = (char .. colors.kreative.green.base.color .. char), ["  yellow:"] = (char .. colors.kreative.orange.base.color .. char), ["  cyan:"] = (char .. colors.kreative.purple.base.color .. char), ["  magenta:"] = (char .. colors.kreative.pink.base.color .. char), ["  white:"] = white}, [" bright:"] = _3_, [" dim:"] = _5_, [" selection:"] = {["  text:"] = "CellBackground", ["  background:"] = (char .. colors.kreative.blue.base.color .. char)}}, ["bell:"] = {[" color:"] = (char .. colors.kreative.blue.base.color .. char)}}
   return output
 end
 _2amodule_2a["gen-colors"] = gen_colors
 local function output_21()
-  local file_name = string.format("alacritty-%s-%s.yml", tostring(vim.g.colors_name), tostring(vim.o.background))
+  local file_name = string.format("alacritty-%s-%s.yml", tostring(main.configs.colors_name), tostring(main.configs.background))
   local fd = assert(loop.fs_open(file_name, "w", 0))
   assert(loop.fs_chmod(file_name, 420))
   assert(loop.fs_write(fd, export["table->one-line-color"](gen_colors(), alacritty), 0))
