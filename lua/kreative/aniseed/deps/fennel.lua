@@ -400,9 +400,9 @@ package.preload["kreative.aniseed.fennel.repl"] = package.preload["kreative.anis
           _625_ = _626_
         end
       end
-      if ((_G.type(_625_) == "table") and (nil ~= (_625_).short_src) and (nil ~= (_625_).linedefined) and ((_625_).what == "Lua") and (nil ~= (_625_).source)) then
-        local src = (_625_).short_src
+      if ((_G.type(_625_) == "table") and (nil ~= (_625_).linedefined) and ((_625_).what == "Lua") and (nil ~= (_625_).short_src) and (nil ~= (_625_).source)) then
         local line = (_625_).linedefined
+        local src = (_625_).short_src
         local source = (_625_).source
         local fnlsrc
         do
