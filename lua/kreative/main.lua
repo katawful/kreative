@@ -11,19 +11,21 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local message, options, _ = autoload("kreative.utils.messages.init"), autoload("kreative.utils.options.init"), nil
+local colors, message, options, _, _0 = autoload("kreative.color"), autoload("kreative.utils.messages.init"), autoload("kreative.utils.options.init"), nil, nil
+_2amodule_locals_2a["colors"] = colors
 _2amodule_locals_2a["message"] = message
 _2amodule_locals_2a["options"] = options
-_2amodule_locals_2a["_"] = _
+_2amodule_locals_2a["_"] = _0
+_2amodule_locals_2a["_"] = _0
 local function init(opts)
   local configs = options.default(opts)
   do end (_2amodule_2a)["configs"] = configs
   if vim.g.colors_name then
-    vim.cmd("highlight clear")
+    vim.api.nvim_exec("highlight  clear", true)
   else
   end
   if (vim.fn.exists("syntax_on") == 1) then
-    vim.cmd("syntax reset")
+    vim.api.nvim_exec("syntax  reset", true)
   else
   end
   local _4_
@@ -48,17 +50,18 @@ local function init(opts)
   end
   vim.g["colors_name"] = assert(_7_, "Please add a colors_name to your opts table")
   configs.colors_name = opts.colors_name
+  colors.update()
   if (configs.render == true) then
     do end (require("kreative.highlights.main")).init()
     do end (require("kreative.highlights.syntax")).init()
     do end (require("kreative.highlights.terminal")).init()
     require("kreative.utils.export.init")
     do end (require("kreative.utils.export.render")).init()
-    for _0, v in ipairs(configs.integrations) do
+    for _1, v in ipairs(configs.integrations) do
       local output = ("kreative.highlights.integrations." .. v)
       require(output).init()
     end
-    for _0, v in pairs(configs.filetypes) do
+    for _1, v in pairs(configs.filetypes) do
       local output = ("kreative.highlights.filetype." .. v)
       require(output).init()
     end

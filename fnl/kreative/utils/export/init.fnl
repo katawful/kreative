@@ -19,6 +19,8 @@
 
 ")
 
+(def terminals [:kitty :alacritty :konsole :urxvt :rxvt-unicode])
+
 ;; FN converts an RGB table to a comma delimited string
 ;; @rgb -- input rgb
 ;; $string -- output string
@@ -71,8 +73,8 @@
       "Converts nested table of colors to a one-line color config string"
       (var color-string
            (string.format file-header (. comment-type 1) terminal
-                          (. comment-type 1) (tostring vim.g.colors_name)
-                          (tostring vim.o.background)))
+                          (. comment-type 1) (tostring main.configs.colors-name)
+                          (tostring main.configs.background)))
       (each [key value (pairs colors)]
         (set color-string (string.format "%s%s\n" color-string key))
         (set color-string (color-nest->one-line-color% key value color-string)))
@@ -109,8 +111,8 @@
                                                                 terminal
                                                                 (. comment-type
                                                                    1)
-                                                                (tostring vim.g.colors_name)
-                                                                (tostring vim.o.background)))
+                                                                (tostring main.configs.colors-name)
+                                                                (tostring main.configs.background)))
                                    (each [key val (pairs colors)]
                                      (table.insert tbl
                                                    (string.format "%s %s\n" key
@@ -122,11 +124,11 @@
 (defn notify$ [terminal] "Small wrapper around utils.message.init"
       (message.info$ (string.format (message.<-table :utils.export.init
                                                      :term-theme-generated)
-                                    terminal vim.g.colors_name vim.o.background)))
+                                    terminal main.configs.colors-name main.configs.background)))
 
 ;; FN -- see if we are using a kat.nvim colorscheme
 (defn is-colorscheme? [] "Returns true when we are using a kat.nvim theme"
-      (if (not= vim.g.colors_name main.configs.colors_name)
+      (if (not= main.configs.colors-name main.configs.colors_name)
           (do
             (message.error$ (message.<-table :utils.export.init
                                              :not-colorscheme))
@@ -134,9 +136,20 @@
           (do
             true)))
 
-;; FN -- wrap terminal generation for a single function
-(defn gen_term_colors [terminal]
-      "Function for Neovim interaction, determines what terminal is being run"
+(defn generate-color-files [] "Generates color.fnl to JSON for faster startup
+Puts it into stdpath('data')"
+      (let [background [:light :dark]
+            old-background main.configs.background]
+        (each [_ back (ipairs backgrounds)]
+          (set main.configs.background back)
+          (json.->file! (string.format "%s/colors/%s-%s.json"
+                                       json.path main.configs.colors_name
+                                       back)
+                        (json.encode-simple (color-table.output))))
+        (set main.configs.background old-background)))
+
+(defn generate-term-colors [terminal] "Runs terminal colorscheme generation
+@terminal -- string of terminal"
       (if (= (is-colorscheme?) true)
           (match (tostring terminal)
             :kitty (do
@@ -158,10 +171,49 @@
                                                                 :invalid-arg)
                                                terminal))))))
 
+;; FN -- wrap terminal generation for a single function
+(defn gen_term_colors [terminal]
+      "Function for Neovim interaction, determines what terminal is being run"
+      (if all?
+          (match all?
+            :all (let [backgrounds [:light :dark]
+                       old-background main.configs.background]
+                   (each [_ v (ipairs colors)]
+                     (set main.configs.background v)
+                     (color-table.update)
+                     (generate-term-colors terminal))
+                   (set main.configs.background old-background))
+            _ (do
+                (message.error$ (string.format (message.<-table :utils.export.init
+                                                                :invalid-arg)
+                                               all?))))
+          (generate-term-colors terminal)))
+
+(defn command-completion [_ cmd-line] "Completion for ':KatGenTermTheme'"
+      (let [command (cmd-line:gsub "^%w*" "")
+            split-cmd (s.split command " ")
+            output []]
+        ;; (. split-cmd 1) is empty, start with 2
+        (when (?. split-cmd 2)
+          ;; First arg will always be preceded by space
+          ;; If second character of arg is a word
+          (if (string.match (command:sub 2 2) "%w")
+              ;; Add matching completions to output
+              (let [completion (command:sub 2 -1)]
+                (each [_ terminal (ipairs terminals)]
+                  (if (string.match terminal (.. "^" completion))
+                      (table.insert output terminal))))
+              ;; Else output all completions available
+              (each [_ terminal (ipairs terminals)]
+                (table.insert output terminal))))
+        ;; This only ever contains 'all' as an arg
+        (when (?. split-cmd 3)
+          (do
+            (table.insert output :all)))
+        output))
+
 ;; create user command for terminal color generation
-(if (= (vim.fn.has :nvim-0.7) 1)
-    (command- :KreativeGenTermTheme
-              (fn [args]
-                (gen_term_colors args.args)) {:nargs 1})
-    (command*-vim :KreativeGenTermTheme {:nargs 1}
-                  "lua require('kreative.utils.export.init').gen_term_colors(<args>)"))
+(cre-command :KreativeGenTermTheme
+             (fn [args]
+               (gen_term_colors (. args.fargs 1) (. args.fargs 2)))
+             {:nargs "+" :complete command-completion})
