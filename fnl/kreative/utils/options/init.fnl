@@ -32,6 +32,7 @@
                   :startify
                   :coc
                   :cmp
+                  :gitsigns
                   :fugitive]))
         (if (?. opts :filetypes)
             (set output.filetypes opts.filetypes)

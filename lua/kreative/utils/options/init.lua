@@ -36,7 +36,7 @@ local function default(opts)
   if _2_ then
     output.integrations = opts.integrations
   else
-    output.integrations = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
+    output.integrations = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "gitsigns", "fugitive"}
   end
   local _6_
   do
