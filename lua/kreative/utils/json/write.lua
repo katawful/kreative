@@ -33,16 +33,16 @@ local function colors(dir)
   local colors0 = {{"light", "soft", "kat.nwim"}, {"light", "hard", "kat.nvim"}, {"dark", "soft", "kat.nwim"}, {"dark", "hard", "kat.nvim"}}
   main.configs.background = ""
   main.configs.contrast = ""
-  main.configs["colors-name"] = ""
+  main.configs.colors_name = ""
   for _0, v in pairs(colors0) do
     main.configs.background = v[1]
     main.configs.contrast = v[2]
-    main.configs["colors-name"] = v[3]
+    main.configs.colors_name = v[3]
     json["->file!"](string.format("%s/colors-%s-%s.json", dir, v[3], v[1]), json["encode-simple"](color_table.output()))
   end
   main.configs.background = __fnl_global__old_2dbackground
   main.configs.contrast = __fnl_global__old_2dcontrast
-  main.configs["colors-name"] = __fnl_global__old_2dcolors_2dname
+  main.configs.colors_name = __fnl_global__old_2dcolors_2dname
   return nil
 end
 _2amodule_2a["colors"] = colors

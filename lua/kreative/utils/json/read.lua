@@ -26,7 +26,6 @@ end
 _2amodule_2a["full-file!"] = full_file_21
 local function colors(dir)
   local file = json["<-file"](string.format("%s/colors-kreative-%s-%s.json", dir, main.configs.colors_name, main.configs.background))
-  print(vim.inspect(file))
   if (#file > 0) then
     return json.decode(file)
   else

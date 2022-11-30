@@ -22,7 +22,6 @@
                                 "%s/colors-kreative-%s-%s.json" dir
                                 main.configs.colors_name
                                 main.configs.background))]
-        (print (vim.inspect file))
         (if (> (length file) 0)
           (json.decode file)
           nil)))

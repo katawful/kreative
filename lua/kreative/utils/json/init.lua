@@ -104,7 +104,7 @@ local function __3efile_21(file, json)
 end
 _2amodule_2a["->file!"] = __3efile_21
 local function exists_3f(file)
-  local result_2_auto = vim.fn.filereadable(string.format("%s%s-%s-%s.json", header, file, main.configs["colors-name"], main.configs.background))
+  local result_2_auto = vim.fn.filereadable(string.format("%s%s-%s-%s.json", header, file, main.configs.colors_name, main.configs.background))
   if (result_2_auto == 0) then
     return false
   else

@@ -591,5 +591,4 @@
         (when (or (a.empty? kreative) (= kreative nil))
           (set kreative (output)))
         (tset _2amodule_2a :kreative kreative)))
-        ; (print (vim.inspect kreative))))
 

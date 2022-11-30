@@ -35,14 +35,14 @@
                     [:dark :hard :kat.nvim]]]
         (set main.configs.background "")
         (set main.configs.contrast "")
-        (set main.configs.colors-name "")
+        (set main.configs.colors_name "")
         (each [_ v (pairs colors)]
           (set main.configs.background (. v 1))
           (set main.configs.contrast (. v 2))
-          (set main.configs.colors-name (. v 3))
+          (set main.configs.colors_name (. v 3))
           (json.->file! (string.format "%s/colors-%s-%s.json" dir (. v 3)
                                        (. v 1))
                         (json.encode-simple (color-table.output))))
         (set main.configs.background old-background)
         (set main.configs.contrast old-contrast)
-        (set main.configs.colors-name old-colors-name)))
+        (set main.configs.colors_name old-colors-name)))
