@@ -46,3 +46,10 @@
         (set main.configs.background old-background)
         (set main.configs.contrast old-contrast)
         (set main.configs.colors_name old-colors-name)))
+
+(defn colors! [] "Read colors table from file for much faster startup"
+      (do-viml system (string.format "mkdir -p %s" header))
+      ; (print (vim.inspect color-table.kreative)))
+      (json.->file! (string.format "%s/%s-colors-%s.json" json.path
+                                   main.configs.colors_name main.configs.background)
+                    (json.encode-simple (color-table.output))))

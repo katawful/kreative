@@ -11,12 +11,14 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local a, json, main, read, ucolors, _ = autoload("kreative.aniseed.core"), autoload("kreative.utils.json.init"), autoload("kreative.main"), autoload("kreative.utils.json.read"), autoload("kreative.utils.highlight.utils"), nil
+local a, json, main, read, render, ucolors, write, _ = autoload("kreative.aniseed.core"), autoload("kreative.utils.json.init"), autoload("kreative.main"), autoload("kreative.utils.json.read"), autoload("kreative.utils.export.render"), autoload("kreative.utils.highlight.utils"), autoload("kreative.utils.json.write"), nil
 _2amodule_locals_2a["a"] = a
 _2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["read"] = read
+_2amodule_locals_2a["render"] = render
 _2amodule_locals_2a["ucolors"] = ucolors
+_2amodule_locals_2a["write"] = write
 _2amodule_locals_2a["_"] = _
 local function load_colors(opts)
   local dark_sub
@@ -420,10 +422,9 @@ local function output()
 end
 _2amodule_2a["output"] = output
 local function update()
-  local colors_name = vim.g.colors_name
-  kreative = read.colors(json.path)
   if (a["empty?"](kreative) or (kreative == nil)) then
     kreative = output()
+    write["colors!"]()
   else
   end
   _2amodule_2a["kreative"] = kreative

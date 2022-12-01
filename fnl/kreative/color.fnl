@@ -1,6 +1,8 @@
 (module kreative.color {autoload {ucolors kreative.utils.highlight.utils
                                   a aniseed.core
+                                  render kreative.utils.export.render
                                   main kreative.main
+                                  write kreative.utils.json.write
                                   read kreative.utils.json.read
                                   json kreative.utils.json.init}
                         require-macros [katcros-fnl.macros.nvim.api.utils.macros]})
@@ -586,9 +588,10 @@
             :color (ucolors.blend color*.pink color*.b5 0.2)}) out)
 
 (defn update [] "Update colors table"
-      (let [colors_name vim.g.colors_name]
-        (set kreative (read.colors json.path))
-        (when (or (a.empty? kreative) (= kreative nil))
-          (set kreative (output)))
-        (tset _2amodule_2a :kreative kreative)))
-
+      ;; TODO: have this be a config option?
+      ;; It's fairly quick overall
+      (if (or (a.empty? kreative) (= kreative nil))
+        (do
+          (set kreative (output))
+          (write.colors!)))
+      (tset _2amodule_2a :kreative kreative))

@@ -46,4 +46,9 @@ local function colors(dir)
   return nil
 end
 _2amodule_2a["colors"] = colors
+local function colors_21()
+  vim.fn.system(string.format("mkdir -p %s", header))
+  return json["->file!"](string.format("%s/%s-colors-%s.json", json.path, main.configs.colors_name, main.configs.background), json["encode-simple"](color_table.output()))
+end
+_2amodule_2a["colors!"] = colors_21
 return _2amodule_2a
