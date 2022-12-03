@@ -57,71 +57,74 @@ local function init(opts)
   vim.g["colors_name"] = assert(_7_, "Please add a colors_name to your opts table")
   configs.colors_name = opts.colors_name
   colors.update()
-  local start = vim.fn.reltime()
+  local rendered_length
   do
-    local rendered_length
+    local i = 0
     do
-      local i = 0
-      for k, _1 in pairs(override["main-files"](), "until", (i > 0)) do
-        i = (i + 1)
+      local files = override["main-files"]()
+      if files then
+        for k, _1 in pairs(override["main-files"](), "until", (i > 0)) do
+          i = (i + 1)
+        end
+      else
       end
-      rendered_length = i
     end
-    local matcher = string.format("%s-%s.json", configs.colors_name, background)
-    local integrations
-    do
-      local output = {}
-      for _1, v in pairs(configs.integrations) do
-        output[("integrations." .. v)] = true
-      end
-      for _1, v in pairs(configs.filetypes) do
-        output[("filetype." .. v)] = true
-      end
-      integrations = output
+    rendered_length = i
+  end
+  local matcher = string.format("%s-%s.json", configs.colors_name, background)
+  local integrations
+  do
+    local output = {}
+    for _1, v in pairs(configs.integrations) do
+      output[("integrations." .. v)] = true
     end
-    if json["exists?"]("main") then
-      run["highlight$<-table"](read["file!"]("main"))
-    else
-      do end (require("kreative.highlights.main")).init()
+    for _1, v in pairs(configs.filetypes) do
+      output[("filetype." .. v)] = true
+    end
+    integrations = output
+  end
+  if json["exists?"]("main") then
+    run["highlight$<-table"](read["file!"]("main"))
+  else
+    do end (require("kreative.highlights.main")).init()
+    if opts.render then
       write["file!"]("main", json.encode(json["file-parse"]("main")))
-    end
-    if json["exists?"]("syntax") then
-      run["highlight$<-table"](read["file!"]("syntax"))
-    else
-      do end (require("kreative.highlights.syntax")).init()
-      write["file!"]("syntax", json.encode(json["file-parse"]("syntax")))
-    end
-    if (rendered_length > 0) then
-      for key, _1 in pairs(integrations) do
-        if json["exists?"](key) then
-          run["highlight$<-table"](read["file!"](key))
-        else
-          do end (require(("kreative.highlights." .. key))).init()
-          write["file!"](key, json.encode(json["file-parse"](key)))
-        end
-      end
-    else
-      for key, _1 in pairs(integrations) do
-        do end (require(("kreative.highlights." .. key))).init()
-        write["file!"](key, json.encode(json["file-parse"](key)))
-      end
-    end
-    do end (require("kreative.highlights.terminal")).init()
-    require("kreative.utils.export.init")
-    do end (require("kreative.utils.export.render")).init()
-    local has_overrides = override.files()
-    if has_overrides then
-      for file, _1 in pairs(has_overrides) do
-        if string.find(file, matcher, 1, true) then
-          run["highlight$<-table"](read["full-file!"](file))
-        else
-        end
-      end
     else
     end
   end
-  local ende = vim.fn.reltimestr(vim.fn.reltime(start))
-  return print(("done " .. ende))
+  if json["exists?"]("syntax") then
+    run["highlight$<-table"](read["file!"]("syntax"))
+  else
+    do end (require("kreative.highlights.syntax")).init()
+    if opts.render then
+      write["file!"]("syntax", json.encode(json["file-parse"]("syntax")))
+    else
+    end
+  end
+  if (rendered_length > 0) then
+    for key, _1 in pairs(integrations) do
+      if json["exists?"](key) then
+        run["highlight$<-table"](read["file!"](key))
+      else
+        do end (require(("kreative.highlights." .. key))).init()
+        if opts.render then
+          write["file!"](key, json.encode(json["file-parse"](key)))
+        else
+        end
+      end
+    end
+  else
+    for key, _1 in pairs(integrations) do
+      do end (require(("kreative.highlights." .. key))).init()
+      if opts.render then
+        write["file!"](key, json.encode(json["file-parse"](key)))
+      else
+      end
+    end
+  end
+  do end (require("kreative.highlights.terminal")).init()
+  require("kreative.utils.export.init")
+  return (require("kreative.utils.export.render")).init()
 end
 _2amodule_2a["init"] = init
 return _2amodule_2a

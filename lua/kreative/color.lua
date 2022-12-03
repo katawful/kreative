@@ -422,9 +422,13 @@ local function output()
 end
 _2amodule_2a["output"] = output
 local function update()
+  kreative = read.colors(json.path)
   if (a["empty?"](kreative) or (kreative == nil)) then
     kreative = output()
-    write["colors!"]()
+    if main.configs.render then
+      write["colors!"]()
+    else
+    end
   else
   end
   _2amodule_2a["kreative"] = kreative

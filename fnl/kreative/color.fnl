@@ -588,10 +588,9 @@
             :color (ucolors.blend color*.pink color*.b5 0.2)}) out)
 
 (defn update [] "Update colors table"
-      ;; TODO: have this be a config option?
-      ;; It's fairly quick overall
+      (set kreative (read.colors json.path))
       (if (or (a.empty? kreative) (= kreative nil))
         (do
           (set kreative (output))
-          (write.colors!)))
+          (when main.configs.render (write.colors!))))
       (tset _2amodule_2a :kreative kreative))
