@@ -26,6 +26,7 @@ local function init(opts)
   local configs = options.default(opts)
   do end (_2amodule_2a)["configs"] = configs
   colors.kreative = {}
+  print(vim.inspect(require("katdotnvim.utils.json.init")))
   if vim.g.colors_name then
     vim.api.nvim_exec("highlight  clear", true)
   else
@@ -71,7 +72,7 @@ local function init(opts)
     end
     rendered_length = i
   end
-  local matcher = string.format("%s-%s.json", configs.colors_name, background)
+  local matcher = string.format("%s-%s.json", configs.colors_name, configs.background)
   local integrations
   do
     local output = {}

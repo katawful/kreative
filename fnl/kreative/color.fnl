@@ -588,7 +588,10 @@
             :color (ucolors.blend color*.pink color*.b5 0.2)}) out)
 
 (defn update [] "Update colors table"
-      (set kreative (read.colors json.path))
+      (let [read-file (require :kreative.utils.json.read)]
+        ; (print (vim.inspect read-file))
+        (set kreative (read-file.colors json.path)))
+
       (if (or (a.empty? kreative) (= kreative nil))
         (do
           (set kreative (output))

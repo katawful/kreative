@@ -19,7 +19,7 @@
 
 (defn colors [dir] "Read colors table from file for much faster startup"
       (let [file (json.<-file (string.format
-                                "%s/colors-%s.json" dir
+                                "%scolors-%s.json" dir
                                 main.configs.background))]
         (if (> (length file) 0)
           (json.decode file)
