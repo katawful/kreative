@@ -9,7 +9,7 @@
                        :bg :SKIP
                        :ctermfg 12
                        :ctermbg :SKIP
-                       (. vim.g.kat_nvim_commentStyle) true}
+                       :italics true}
                       {:group :Constant
                        :fg colors.kreative.pink.base.color
                        :bg :SKIP
@@ -186,7 +186,7 @@
                        :bg :SKIP
                        :ctermfg 13
                        :ctermbg :SKIP
-                       (. vim.g.kat_nvim_commentStyle) true}
+                       :italics true}
                       {:group :Debug
                        :fg colors.kreative.plum.auto_mix_green.color
                        :bg :SKIP
