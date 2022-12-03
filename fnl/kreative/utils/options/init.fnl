@@ -1,5 +1,6 @@
 (module kreative.utils.options.init
-        {require-macros [kreative.katcros-fnl.macros.nvim.api.options.macros]})
+        {autoload {main kreative.main}
+         require-macros [katcros-fnl.macros.nvim.api.options.macros]})
 
 ;;; Module for option management
 

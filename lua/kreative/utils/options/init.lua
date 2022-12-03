@@ -10,7 +10,9 @@ do
   _2amodule_2a["aniseed/locals"] = {}
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
-local _ = nil
+local autoload = (require("kreative.aniseed.autoload")).autoload
+local main, _ = autoload("kreative.main"), nil
+_2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["_"] = _
 local function default_2a()
   vim.g["kat_nvim_commentStyle"] = "italic"
