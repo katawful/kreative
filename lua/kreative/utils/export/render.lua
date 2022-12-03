@@ -27,7 +27,7 @@ local function file()
     main.configs.background = v
     color_table.update()
     for _2, file0 in ipairs(json.files) do
-      write["file!"](file0, json.encode(json["file-parse"](file0)), main.configs.colors_name)
+      write["file!"](file0, json.encode(json["file-parse"](file0)))
     end
   end
   main.configs.background = old_background
