@@ -21,7 +21,6 @@ local function init(opts)
   local configs = options.default(opts)
   do end (_2amodule_2a)["configs"] = configs
   colors.kreative = {}
-  print(vim.inspect(colors.kreative))
   if vim.g.colors_name then
     vim.api.nvim_exec("highlight  clear", true)
   else
