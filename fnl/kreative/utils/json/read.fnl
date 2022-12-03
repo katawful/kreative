@@ -9,8 +9,8 @@
 (defn file! [file]
       "Reads a json file
 @file -- pathless, extensionless file name"
-      (json.decode (json.<-file (string.format "%s/%s-%s-%s.json" json.path
-                                               main.configs.colors_name file
+      (json.decode (json.<-file (string.format "%s/%s-%s.json" json.path
+                                               file
                                                main.configs.background))))
 
 (defn full-file! [full-file] "Reads from a full file path
@@ -19,8 +19,7 @@
 
 (defn colors [dir] "Read colors table from file for much faster startup"
       (let [file (json.<-file (string.format
-                                "%s/%s-colors-%s.json" dir
-                                main.configs.colors_name
+                                "%s/colors-%s.json" dir
                                 main.configs.background))]
         (if (> (length file) 0)
           (json.decode file)

@@ -17,7 +17,7 @@ _2amodule_locals_2a["main"] = main
 local header = ((_2amodule_2a).header or string.format("%s", json.path))
 do end (_2amodule_2a)["header"] = header
 local function file_21(file)
-  return json.decode(json["<-file"](string.format("%s/%s-%s-%s.json", json.path, main.configs.colors_name, file, main.configs.background)))
+  return json.decode(json["<-file"](string.format("%s/%s-%s.json", json.path, file, main.configs.background)))
 end
 _2amodule_2a["file!"] = file_21
 local function full_file_21(full_file)
@@ -25,7 +25,7 @@ local function full_file_21(full_file)
 end
 _2amodule_2a["full-file!"] = full_file_21
 local function colors(dir)
-  local file = json["<-file"](string.format("%s/%s-colors-%s.json", dir, main.configs.colors_name, main.configs.background))
+  local file = json["<-file"](string.format("%s/colors-%s.json", dir, main.configs.background))
   if (#file > 0) then
     return json.decode(file)
   else

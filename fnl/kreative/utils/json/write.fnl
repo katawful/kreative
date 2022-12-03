@@ -12,8 +12,8 @@
 @file -- a file name with no path
 @source-json -- a valid json object"
       (do-viml system (string.format "mkdir -p %s" header))
-      (json.->file! (string.format "%s/%s-%s-%s.json" json.path
-                                   main.configs.colors_name file
+      (json.->file! (string.format "%s/%s-%s.json" json.path
+                                   file
                                    main.configs.background)
                     source-json))
 
@@ -50,7 +50,6 @@
 
 (defn colors! [] "Read colors table from file for much faster startup"
       (do-viml system (string.format "mkdir -p %s" header))
-      ; (print (vim.inspect color-table.kreative)))
-      (json.->file! (string.format "%s/%s-colors-%s.json" json.path
-                                   main.configs.colors_name main.configs.background)
+      (json.->file! (string.format "%s/colors-%s.json" json.path
+                                   main.configs.background)
                     (json.encode-simple (color-table.output))))
