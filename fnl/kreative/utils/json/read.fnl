@@ -9,8 +9,8 @@
 (defn file! [file]
       "Reads a json file
 @file -- pathless, extensionless file name"
-      (json.decode (json.<-file (string.format "%s%s-%s-%s.json" header file
-                                               main.configs.colors_name
+      (json.decode (json.<-file (string.format "%s/%s-%s-%s.json" json.path
+                                               main.configs.colors_name file
                                                main.configs.background))))
 
 (defn full-file! [full-file] "Reads from a full file path

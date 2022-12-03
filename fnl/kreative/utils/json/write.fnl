@@ -8,12 +8,13 @@
 
 (defonce header (string.format "%s" json.path))
 
-(defn file! [file source-json colors_name] "Writes a json file to std
+(defn file! [file source-json] "Writes a json file to std
 @file -- a file name with no path
 @source-json -- a valid json object"
       (do-viml system (string.format "mkdir -p %s" header))
-      (json.->file! (string.format "%s/%s-%s-%s.json" json.path file
-                                   colors_name main.configs.background)
+      (json.->file! (string.format "%s/%s-%s-%s.json" json.path
+                                   main.configs.colors_name file
+                                   main.configs.background)
                     source-json))
 
 (defn override-file! [source-json override colors_name]

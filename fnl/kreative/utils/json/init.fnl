@@ -75,8 +75,8 @@ Returns a lua table"
 
 (defn exists? [file] "See if json file exists"
       (do-viml filereadable
-               (string.format "%s%s-%s-%s.json" header file
-                              main.configs.colors_name
+               (string.format "%s%s-%s-%s.json" header main.configs.colors_name
+                              file
                               main.configs.background)))
 
 (defn <-file [file] "Read stored json

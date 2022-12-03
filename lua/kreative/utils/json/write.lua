@@ -18,9 +18,9 @@ _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["_"] = _
 local header = ((_2amodule_2a).header or string.format("%s", json.path))
 do end (_2amodule_2a)["header"] = header
-local function file_21(file, source_json, colors_name)
+local function file_21(file, source_json)
   vim.fn.system(string.format("mkdir -p %s", header))
-  return json["->file!"](string.format("%s/%s-%s-%s.json", json.path, file, colors_name, main.configs.background), source_json)
+  return json["->file!"](string.format("%s/%s-%s-%s.json", json.path, main.configs.colors_name, file, main.configs.background), source_json)
 end
 _2amodule_2a["file!"] = file_21
 local function override_file_21(source_json, override, colors_name)
