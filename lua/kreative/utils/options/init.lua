@@ -14,16 +14,6 @@ local autoload = (require("kreative.aniseed.autoload")).autoload
 local main, _ = autoload("kreative.main"), nil
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["_"] = _
-local function default_2a()
-  vim.g["kat_nvim_commentStyle"] = "italic"
-  vim.g["kat_nvim_stupidFeatures"] = false
-  vim.g["kat_nvim_filetypes"] = {"vim", "vimwiki", "markdown"}
-  vim.g["kat_nvim_integrations"] = {"treesitter", "lsp", "ts_rainbow", "indent_blankline", "startify", "coc", "cmp", "fugitive"}
-  vim.g["kat_nvim_dontRender"] = false
-  vim.g["kat_nvim_compile_enable"] = false
-  return nil
-end
-_2amodule_2a["default*"] = default_2a
 local function default(opts)
   local output = {}
   local _2_
@@ -80,13 +70,9 @@ local function default(opts)
   if _14_ then
     output.render = opts.render
   else
-    output.render = true
+    output.render = false
   end
-  if (vim.fn.has("nvim-0.7") == 0) then
-    output.version = "0.6"
-  else
-    output.version = "0.7"
-  end
+  output.version = "0.8"
   return output
 end
 _2amodule_2a["default"] = default
