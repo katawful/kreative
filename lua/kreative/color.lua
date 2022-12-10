@@ -11,8 +11,9 @@ do
   _2amodule_locals_2a = (_2amodule_2a)["aniseed/locals"]
 end
 local autoload = (require("kreative.aniseed.autoload")).autoload
-local a, json, main, read, render, ucolors, write, _ = autoload("kreative.aniseed.core"), autoload("kreative.utils.json.init"), autoload("kreative.main"), autoload("kreative.utils.json.read"), autoload("kreative.utils.export.render"), autoload("kreative.utils.highlight.utils"), autoload("kreative.utils.json.write"), nil
+local a, get, json, main, read, render, ucolors, write, _ = autoload("kreative.aniseed.core"), autoload("kreative.utils.highlight.get"), autoload("kreative.utils.json.init"), autoload("kreative.main"), autoload("kreative.utils.json.read"), autoload("kreative.utils.export.render"), autoload("kreative.utils.highlight.utils"), autoload("kreative.utils.json.write"), nil
 _2amodule_locals_2a["a"] = a
+_2amodule_locals_2a["get"] = get
 _2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["read"] = read
@@ -421,14 +422,96 @@ local function output()
   return out
 end
 _2amodule_2a["output"] = output
-local function update()
-  kreative = read.colors(json.path())
-  if (a["empty?"](kreative) or (kreative == nil) or (main.configs.render == false)) then
-    kreative = output()
-    if main.configs.render then
-      write["colors!"]()
+local function nil_lookup(source, lookup)
+  local t_74_
+  do
+    local t_75_
+    do
+      local t_76_ = source
+      if (nil ~= t_76_) then
+        t_76_ = (t_76_)[lookup]
+      else
+      end
+      t_75_ = t_76_
+    end
+    if (nil ~= t_75_) then
+      t_75_ = (t_75_).base
     else
     end
+    t_74_ = t_75_
+  end
+  if (nil ~= t_74_) then
+    t_74_ = (t_74_).color
+  else
+  end
+  return t_74_
+end
+_2amodule_2a["nil-lookup"] = nil_lookup
+local function color_change_3f(json_file)
+  local current_colors = {light = def_fore_colors()[1], dark = def_back_colors()[1], red = red_primary, blue = blue_primary, green = green_primary, orange = orange_primary, purple = purple_primary, pink = pink_primary}
+  local json_colors = {light = nil_lookup(json_file, "fg"), dark = nil_lookup(json_file, "bg"), red = nil_lookup(json_file, "red"), blue = nil_lookup(json_file, "blue"), green = nil_lookup(json_file, "green"), orange = nil_lookup(json_file, "orange"), purple = nil_lookup(json_file, "purple"), pink = nil_lookup(json_file, "pink")}
+  local compare = {}
+  for color, current_value in pairs(current_colors) do
+    local parse_color = json_colors[color]
+    if (current_value ~= parse_color) then
+      table.insert(compare, color)
+    else
+    end
+  end
+  if a["empty?"](compare) then
+    return false
+  else
+    return true
+  end
+end
+_2amodule_2a["color-change?"] = color_change_3f
+local function comment_style_change_3f()
+  local current_style
+  do
+    local comments = main.configs.comment_style
+    table.sort(comments)
+    current_style = comments
+  end
+  local json_file = read["file!"]("syntax")
+  local json_comment_style = "empty"
+  for _0, table_23 in ipairs(json_file) do
+    if (json_comment_style ~= "empty") then break end
+    if (get.group(table_23) == "Comment") then
+      local work_table = get["all-attr->table"](table_23)
+      json_comment_style = {}
+      for k, _1 in pairs(work_table) do
+        table.insert(json_comment_style, k)
+      end
+    else
+    end
+  end
+  table.sort(json_comment_style)
+  return not vim.deep_equal(json_comment_style, current_style)
+end
+_2amodule_2a["comment-style-change?"] = comment_style_change_3f
+local function overall_change_3f(json_file)
+  if a["empty?"](json_file) then
+    return false
+  else
+    local color_change = color_change_3f(json_file)
+    local comment_change = comment_style_change_3f()
+    return ((color_change and comment_change) or (color_change or comment_change))
+  end
+end
+_2amodule_2a["overall-change?"] = overall_change_3f
+local function update()
+  kreative = read.colors(json.path())
+  if (a["empty?"](kreative) or (kreative == nil)) then
+    kreative = output()
+    do end (_2amodule_2a)["kreative"] = kreative
+    if main.configs.render then
+      render["file*"]()
+    else
+    end
+  elseif (overall_change_3f(kreative) and main.configs.render) then
+    kreative = output()
+    do end (_2amodule_2a)["kreative"] = kreative
+    render["file*"]()
   else
   end
   _2amodule_2a["kreative"] = kreative

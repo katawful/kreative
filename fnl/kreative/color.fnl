@@ -1,5 +1,6 @@
 (module kreative.color {autoload {ucolors kreative.utils.highlight.utils
                                   a aniseed.core
+                                  get kreative.utils.highlight.get
                                   render kreative.utils.export.render
                                   main kreative.main
                                   write kreative.utils.json.write
@@ -587,10 +588,75 @@
            {:desc "Mix sixth bg"
             :color (ucolors.blend color*.pink color*.b5 0.2)}) out)
 
+(defn nil-lookup [source lookup]
+      (?. (?. (?. source lookup) :base) :color))
+
+(defn color-change? [json-file] "Return true if color changes were found from the user not present
+If the user had exported JSON files and updated their colorscheme file, this will return true"
+      ;; Import the current session colors
+      (let [current-colors {:light (. (def-fore-colors) 1) ; we only care about relative changes here
+                            :dark (. (def-back-colors) 1) ; any change to base will reflect here
+                            :red red-primary
+                            :blue blue-primary
+                            :green green-primary
+                            :orange orange-primary
+                            :purple purple-primary
+                            :pink pink-primary}
+            ;; From JSON file
+            json-colors {:light (nil-lookup json-file :fg)
+                         :dark (nil-lookup json-file :bg)
+                         :red (nil-lookup json-file :red)
+                         :blue (nil-lookup json-file :blue)
+                         :green (nil-lookup json-file :green)
+                         :orange (nil-lookup json-file :orange)
+                         :purple (nil-lookup json-file :purple)
+                         :pink (nil-lookup json-file :pink)}
+            ;; Comparison table, should be empty if no differences
+            compare []]
+          (each [color current-value (pairs current-colors)]
+            (let [parse-color (. json-colors color)]
+              (when (not= current-value parse-color)
+                (table.insert compare color))))
+          (if (a.empty? compare)
+            false
+            true)))
+
+(defn comment-style-change? [] "Returns true of the comment style has changed"
+      (let [current-style (let [comments main.configs.comment_style]
+                            (table.sort comments)
+                            comments)
+            json-file (read.file! :syntax)]
+        (var json-comment-style "empty")
+        (each [_ table# (ipairs json-file) :until (not= json-comment-style :empty)]
+          (if (= (get.group table#) :Comment)
+            (let [work-table (get.all-attr->table table#)]
+              (set json-comment-style [])
+              (each [k _ (pairs work-table)]
+                (table.insert json-comment-style k)))))
+        (table.sort json-comment-style)
+        (not (vim.deep_equal json-comment-style current-style))))
+
+(defn overall-change? [json-file] "Use the 2 comparisons to see if overall changes have been made"
+      (if (a.empty? json-file)
+        false
+        (let [color-change (color-change? json-file)
+              comment-change (comment-style-change?)]
+          (or (and color-change comment-change)
+              (or color-change comment-change)))))
+
 (defn update [] "Update colors table"
       (set kreative (read.colors (json.path)))
-      (if (or (a.empty? kreative) (= kreative nil) (= main.configs.render false))
+      ;; If color table is empty or rendering is not allowed
+      (if (or (a.empty? kreative) (= kreative nil))
         (do
           (set kreative (output))
-          (when main.configs.render (write.colors!))))
+          (tset _2amodule_2a :kreative kreative)
+          (when main.configs.render (render.file*)))
+        ;; If changes to color file, render again if allowed
+        (and (overall-change? kreative) main.configs.render)
+        (do
+          (set kreative (output))
+          (tset _2amodule_2a :kreative kreative)
+          (render.file*)))
       (tset _2amodule_2a :kreative kreative))
+
