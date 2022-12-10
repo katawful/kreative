@@ -25,24 +25,14 @@
 (defn link [table] "Get the linking group for a highlight group"
       (?. table :link))
 
-(defn attr->table [table#]
-      "Get the boolean attributes of a highlight group as a table"
-      (let [output []]
+(defn default [table] "Get default key for a highlight group"
+      (?. table :default))
+
+(defn all-attr->table [table#] "Get the boolean attributes of a highlight group
+  as a table"
+      (let [output {}]
         (each [k v (pairs table#)]
-          (if (= v true)
-              (table.insert output k)))
+          ;; specifically look for non-nil values
+          (if (or (= v true) (= v false))
+              (tset output k v)))
         output))
-
-(defn all-attr->table [table#] (let [output {}]
-                                 (each [k v (pairs table#)]
-                                   (if (or (= v true) (= v false))
-                                       (tset output k v)))
-                                 output))
-
-(defn attr->string [table]
-      "Get the boolean attributes of a highlight group as a string
-that is compatible with Vimscript's highlight function"
-      (let [attr-table (attr->table table)]
-        (if (a.empty? attr-table)
-            nil
-            (s.join "," (attr->table table)))))

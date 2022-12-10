@@ -86,17 +86,15 @@ local function link(table)
   return t_15_
 end
 _2amodule_2a["link"] = link
-local function attr__3etable(table_23)
-  local output = {}
-  for k, v in pairs(table_23) do
-    if (v == true) then
-      table.insert(output, k)
-    else
-    end
+local function default(table)
+  local t_17_ = table
+  if (nil ~= t_17_) then
+    t_17_ = (t_17_).default
+  else
   end
-  return output
+  return t_17_
 end
-_2amodule_2a["attr->table"] = attr__3etable
+_2amodule_2a["default"] = default
 local function all_attr__3etable(table_23)
   local output = {}
   for k, v in pairs(table_23) do
@@ -108,13 +106,4 @@ local function all_attr__3etable(table_23)
   return output
 end
 _2amodule_2a["all-attr->table"] = all_attr__3etable
-local function attr__3estring(table)
-  local attr_table = attr__3etable(table)
-  if a["empty?"](attr_table) then
-    return nil
-  else
-    return s.join(",", attr__3etable(table))
-  end
-end
-_2amodule_2a["attr->string"] = attr__3estring
 return _2amodule_2a

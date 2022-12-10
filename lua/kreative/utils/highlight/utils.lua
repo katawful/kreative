@@ -38,6 +38,10 @@ local function blend(source_color, mix_color, alpha)
   return output
 end
 _2amodule_2a["blend"] = blend
+local function decimal_rgb__3ehex(rgb)
+  return string.format("#%06x", rgb)
+end
+_2amodule_2a["decimal-rgb->hex"] = decimal_rgb__3ehex
 local function brighten(color, percent)
   local hsl_color = hsl.hex_to_hsluv(color)
   local luminance = (100 - hsl_color[3])

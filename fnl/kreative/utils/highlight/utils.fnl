@@ -27,6 +27,10 @@
             output (tostring (hsl.rgb_to_hex return-color))]
         output))
 
+(defn decimal-rgb->hex [rgb] "Converts single number decimal rgb number to hex
+@rgb -- single number decimal"
+      (string.format "#%06x" rgb))
+
 ;; FN -- brighten a hex color
 ;; @color -- input hex color
 ;; @percent -- amount to adjust as a decimal percent

@@ -17,27 +17,45 @@ _2amodule_locals_2a["apply"] = apply
 _2amodule_locals_2a["ucolors"] = ucolors
 local function highlight_24_3c_table(high_table)
   for _, value in pairs(high_table) do
-    if ((type(value) == "function") and (value() ~= nil)) then
-      for _0, nest in pairs({value()}) do
-        apply["highlight$"](nest)
-      end
-    elseif ((type(value) == "table") or (value() ~= nil)) then
-      local function _2_()
-        local t_1_ = value
-        if (nil ~= t_1_) then
-          t_1_ = (t_1_)[1]
+    if (type(value) == "function") then
+      local function _1_()
+        local t_2_ = value()
+        if (nil ~= t_2_) then
+          t_2_ = (t_2_)[1]
         else
         end
-        return t_1_
+        return t_2_
       end
-      if (type(_2_()) == "table") then
+      if ((type(value()) == "table") and _1_()) then
+        for _0, nest in pairs(value()) do
+          if (type(nest) == "function") then
+            apply["highlight$"](nest())
+          else
+            apply["highlight$"](nest)
+          end
+        end
+      else
+        if value() then
+          apply["highlight$"](value())
+        else
+        end
+      end
+    else
+      local function _8_()
+        local t_7_ = value
+        if (nil ~= t_7_) then
+          t_7_ = (t_7_)[1]
+        else
+        end
+        return t_7_
+      end
+      if (type(_8_()) == "table") then
         for _0, nest in pairs(value) do
           apply["highlight$"](nest)
         end
       else
         apply["highlight$"](value)
       end
-    else
     end
   end
   return nil
