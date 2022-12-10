@@ -13,8 +13,8 @@
 ;;; Main plugin interface
 
 ;; fnlfmt: skip
-(def configs (options.default opts))
 (defn init [opts] "Main plugin interface" ; define some defaults
+      (def configs (options.default opts))
       (set colors.kreative {})
       (when vim.g.colors_name
         (do-ex highlight "clear"))
@@ -31,7 +31,7 @@
                                   (each [k _ (pairs (override.main-files) :until (> i 0))]
                                     (set i (+ i 1)))))
                               i)
-            matcher (string.format "%s-%s.json" configs.colors_name background)
+            matcher (string.format "%s-%s.json" configs.colors_name configs.background)
             integrations (let [output {}]
                            (each [_ v (pairs configs.integrations)]
                              (tset output (.. "integrations." v) true))

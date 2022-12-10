@@ -22,9 +22,9 @@ _2amodule_locals_2a["run"] = run
 _2amodule_locals_2a["write"] = write
 _2amodule_locals_2a["_"] = _0
 _2amodule_locals_2a["_"] = _0
-local configs = options.default(opts)
-do end (_2amodule_2a)["configs"] = configs
 local function init(opts)
+  local configs = options.default(opts)
+  do end (_2amodule_2a)["configs"] = configs
   colors.kreative = {}
   if vim.g.colors_name then
     vim.api.nvim_exec("highlight  clear", true)
@@ -71,7 +71,7 @@ local function init(opts)
     end
     rendered_length = i
   end
-  local matcher = string.format("%s-%s.json", configs.colors_name, background)
+  local matcher = string.format("%s-%s.json", configs.colors_name, configs.background)
   local integrations
   do
     local output = {}
