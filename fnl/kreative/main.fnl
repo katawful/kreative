@@ -13,8 +13,8 @@
 ;;; Main plugin interface
 
 ;; fnlfmt: skip
+(def configs (options.default opts))
 (defn init [opts] "Main plugin interface" ; define some defaults
-      (def configs (options.default opts))
       (set colors.kreative {})
       (when vim.g.colors_name
         (do-ex highlight "clear"))

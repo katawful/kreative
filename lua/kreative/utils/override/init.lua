@@ -14,7 +14,7 @@ local autoload = (require("kreative.aniseed.autoload")).autoload
 local json = autoload("kreative.utils.json.init")
 do end (_2amodule_locals_2a)["json"] = json
 local function main_files()
-  local fd = vim.loop.fs_opendir(json.path, nil, (#json.files * 2))
+  local fd = vim.loop.fs_opendir(json.path(), nil, (#json.files * 2))
   local output = {}
   if fd then
     local dir = vim.loop.fs_readdir(fd)
@@ -37,7 +37,7 @@ end
 _2amodule_2a["main-files"] = main_files
 local function get_dir()
   local desc_num = (10 + (#json.files * 4))
-  local fd = vim.loop.fs_opendir(json.path, nil, desc_num)
+  local fd = vim.loop.fs_opendir(json.path(), nil, desc_num)
   local output = {}
   if fd then
     for _, descriptor in pairs(vim.loop.fs_readdir(fd)) do
@@ -59,7 +59,7 @@ local function files()
   local output = {}
   if dirs then
     for dir, _ in pairs(dirs) do
-      local fd = vim.loop.fs_opendir((json.path .. dir), nil, desc_num)
+      local fd = vim.loop.fs_opendir((json.path() .. dir), nil, desc_num)
       if fd then
         for _0, descriptor in pairs(vim.loop.fs_readdir(fd)) do
           if (descriptor.type == "file") then

@@ -4,7 +4,7 @@
 ;;; Handles loading in overrides dynamically
 
 (defn main-files [] "Returns a table of the main json files found, if any"
-      (let [fd (vim.loop.fs_opendir json.path nil (* (length json.files) 2))
+      (let [fd (vim.loop.fs_opendir (json.path) nil (* (length json.files) 2))
             output {}]
         (if fd
             (let [dir (vim.loop.fs_readdir fd)]
@@ -19,7 +19,7 @@
 
 (defn get-dir [] "Get directories for override files to look through"
       (let [desc-num (+ 10 (* (length json.files) 4))
-            fd (vim.loop.fs_opendir json.path nil desc-num)
+            fd (vim.loop.fs_opendir (json.path) nil desc-num)
             output {}]
         (if fd
             (do
@@ -38,7 +38,7 @@
         (if dirs
             (do
               (each [dir _ (pairs dirs)]
-                (let [fd (vim.loop.fs_opendir (.. json.path dir) nil desc-num)]
+                (let [fd (vim.loop.fs_opendir (.. (json.path) dir) nil desc-num)]
                   (when fd
                     (do
                       (each [_ descriptor (pairs (vim.loop.fs_readdir fd))]

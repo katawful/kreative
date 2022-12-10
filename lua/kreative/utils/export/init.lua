@@ -114,7 +114,7 @@ local function generate_color_files()
   local old_background = main.configs.background
   for _0, back in ipairs(backgrounds) do
     main.configs.background = back
-    json["->file!"](string.format("%s/colors/%s-%s.json", json.path, main.configs.colors_name, back), json["encode-simple"](color_table.output()))
+    json["->file!"](string.format("%s/colors/%s-%s.json", json.path(), main.configs.colors_name, back), json["encode-simple"](color_table.output()))
   end
   main.configs.background = old_background
   return nil

@@ -4,8 +4,8 @@
 
 ;;; JSON manipulation
 
-(defonce std-data (let [path (do-viml stdpath :data)]
-                    (.. path :/kat)))
+(defonce std-data (let [fpath (do-viml stdpath :data)]
+                    (.. fpath :/kat)))
 
 ;; TODO: move this somewhere better
 (defonce files [:main
@@ -23,9 +23,7 @@
                 :filetype.vim
                 :filetype.vimwiki])
 
-(defonce path (.. std-data :/kreative/json/ main.configs.colors_name "/"))
-
-(defonce header (string.format "%s" path))
+(defn path [] (.. std-data :/kreative/json/ main.configs.colors_name "/"))
 
 ;; TODO: move this somewhere better
 (defn expand-table [tbl] "Expands a table so that no functions remain
@@ -75,7 +73,7 @@ Returns a lua table"
 
 (defn exists? [file] "See if json file exists"
       (do-viml filereadable
-               (string.format "%s%s-%s.json" header
+               (string.format "%s%s-%s.json" (path)
                               file
                               main.configs.background)))
 

@@ -588,7 +588,13 @@
             :color (ucolors.blend color*.pink color*.b5 0.2)}) out)
 
 (defn update [] "Update colors table"
+<<<<<<< Updated upstream
       (set kreative (read.colors json.path))
+=======
+      (let [read-file (require :kreative.utils.json.read)]
+        (set kreative (read-file.colors (json.path))))
+
+>>>>>>> Stashed changes
       (if (or (a.empty? kreative) (= kreative nil))
         (do
           (set kreative (output))

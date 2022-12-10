@@ -144,7 +144,7 @@ Puts it into stdpath('data')"
         (each [_ back (ipairs backgrounds)]
           (set main.configs.background back)
           (json.->file! (string.format "%s/colors/%s-%s.json"
-                                       json.path main.configs.colors_name
+                                       (json.path) main.configs.colors_name
                                        back)
                         (json.encode-simple (color-table.output))))
         (set main.configs.background old-background)))

@@ -16,17 +16,15 @@ _2amodule_locals_2a["color-table"] = color_table
 _2amodule_locals_2a["json"] = json
 _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["_"] = _
-local header = ((_2amodule_2a).header or string.format("%s", json.path))
-do end (_2amodule_2a)["header"] = header
 local function file_21(file, source_json)
-  vim.fn.system(string.format("mkdir -p %s", header))
-  return json["->file!"](string.format("%s/%s-%s.json", json.path, file, main.configs.background), source_json)
+  vim.fn.system(string.format("mkdir -p %s", json.path()))
+  return json["->file!"](string.format("%s/%s-%s.json", json.path(), file, main.configs.background), source_json)
 end
 _2amodule_2a["file!"] = file_21
 local function override_file_21(source_json, override, colors_name)
-  vim.fn.system(string.format("mkdir -p %s", header))
-  vim.fn.system(string.format("mkdir -p %s", (header .. override)))
-  return json["->file!"](string.format("%s%s/%s-%s.json", header, override, colors_name, main.configs.background), source_json)
+  vim.fn.system(string.format("mkdir -p %s", json.path()))
+  vim.fn.system(string.format("mkdir -p %s", (json.path() .. override)))
+  return json["->file!"](string.format("%s%s/%s-%s.json", json.path(), override, colors_name, main.configs.background), source_json)
 end
 _2amodule_2a["override-file!"] = override_file_21
 local function colors(dir)
@@ -47,8 +45,8 @@ local function colors(dir)
 end
 _2amodule_2a["colors"] = colors
 local function colors_21()
-  vim.fn.system(string.format("mkdir -p %s", header))
-  return json["->file!"](string.format("%s/colors-%s.json", json.path, main.configs.background), json["encode-simple"](color_table.output()))
+  vim.fn.system(string.format("mkdir -p %s", json.path()))
+  return json["->file!"](string.format("%s/colors-%s.json", json.path(), main.configs.background), json["encode-simple"](color_table.output()))
 end
 _2amodule_2a["colors!"] = colors_21
 return _2amodule_2a

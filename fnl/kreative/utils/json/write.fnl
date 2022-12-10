@@ -6,13 +6,11 @@
 
 ;;; Handles writing json to file
 
-(defonce header (string.format "%s" json.path))
-
 (defn file! [file source-json] "Writes a json file to std
 @file -- a file name with no path
 @source-json -- a valid json object"
-      (do-viml system (string.format "mkdir -p %s" header))
-      (json.->file! (string.format "%s/%s-%s.json" json.path
+      (do-viml system (string.format "mkdir -p %s" (json.path)))
+      (json.->file! (string.format "%s/%s-%s.json" (json.path)
                                    file
                                    main.configs.background)
                     source-json))
@@ -22,9 +20,9 @@
 @source-json -- a valid json object
 @override -- the name of the override
 @colors_name -- name of colorscheme"
-      (do-viml system (string.format "mkdir -p %s" header))
-      (do-viml system (string.format "mkdir -p %s" (.. header override)))
-      (json.->file! (string.format "%s%s/%s-%s.json" header override
+      (do-viml system (string.format "mkdir -p %s" (json.path)))
+      (do-viml system (string.format "mkdir -p %s" (.. (json.path) override)))
+      (json.->file! (string.format "%s%s/%s-%s.json" (json.path) override
                                    colors_name main.configs.background)
                     source-json))
 
@@ -49,7 +47,7 @@
         (set main.configs.colors_name old-colors-name)))
 
 (defn colors! [] "Read colors table from file for much faster startup"
-      (do-viml system (string.format "mkdir -p %s" header))
-      (json.->file! (string.format "%s/colors-%s.json" json.path
+      (do-viml system (string.format "mkdir -p %s" (json.path)))
+      (json.->file! (string.format "%s/colors-%s.json" (json.path)
                                    main.configs.background)
                     (json.encode-simple (color-table.output))))

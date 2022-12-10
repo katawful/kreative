@@ -14,14 +14,12 @@ local autoload = (require("kreative.aniseed.autoload")).autoload
 local json, main = autoload("kreative.utils.json.init"), autoload("kreative.main")
 do end (_2amodule_locals_2a)["json"] = json
 _2amodule_locals_2a["main"] = main
-local header = ((_2amodule_2a).header or string.format("%s", json.path))
-do end (_2amodule_2a)["header"] = header
 local function file_21(file)
-  return json.decode(json["<-file"](string.format("%s/%s-%s.json", json.path, file, main.configs.background)))
+  return json.decode(json["<-file"](string.format("%s/%s-%s.json", json.path(), file, main.configs.background)))
 end
 _2amodule_2a["file!"] = file_21
 local function full_file_21(full_file)
-  return json.decode(json["<-file"](string.format("%s%s", header, full_file)))
+  return json.decode(json["<-file"](string.format("%s%s", json.path(), full_file)))
 end
 _2amodule_2a["full-file!"] = full_file_21
 local function colors(dir)

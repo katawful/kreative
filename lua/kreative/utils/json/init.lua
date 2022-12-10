@@ -16,17 +16,17 @@ _2amodule_locals_2a["main"] = main
 _2amodule_locals_2a["_"] = _
 local std_data
 local function _1_(...)
-  local path = vim.fn.stdpath("data")
-  return (path .. "/kat")
+  local fpath = vim.fn.stdpath("data")
+  return (fpath .. "/kat")
 end
 std_data = ((_2amodule_2a)["std-data"] or _1_(...))
 do end (_2amodule_2a)["std-data"] = std_data
 local files = ((_2amodule_2a).files or {"main", "syntax", "integrations.cmp", "integrations.coc", "integrations.fugitive", "integrations.gitsigns", "integrations.indent_blankline", "integrations.lsp", "integrations.startify", "integrations.treesitter", "integrations.ts_rainbow", "filetype.markdown", "filetype.vim", "filetype.vimwiki"})
 do end (_2amodule_2a)["files"] = files
-local path = ((_2amodule_2a).path or (std_data .. "/kreative/json/" .. main.configs.colors_name .. "/"))
-do end (_2amodule_2a)["path"] = path
-local header = ((_2amodule_2a).header or string.format("%s", path))
-do end (_2amodule_2a)["header"] = header
+local function path()
+  return (std_data .. "/kreative/json/" .. main.configs.colors_name .. "/")
+end
+_2amodule_2a["path"] = path
 local function expand_table(tbl)
   local output = {}
   for k, value in pairs(tbl) do
@@ -104,7 +104,7 @@ local function __3efile_21(file, json)
 end
 _2amodule_2a["->file!"] = __3efile_21
 local function exists_3f(file)
-  local result_2_auto = vim.fn.filereadable(string.format("%s%s-%s.json", header, file, main.configs.background))
+  local result_2_auto = vim.fn.filereadable(string.format("%s%s-%s.json", path(), file, main.configs.background))
   if (result_2_auto == 0) then
     return false
   else
