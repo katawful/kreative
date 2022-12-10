@@ -1,11 +1,6 @@
 (local ucolors (require :kreative.utils.highlight.utils))
 (local colors (require :kreative.color))
-(local main (require :kreative.main))
 (local kreative {})
-(colors.update)
-; (print "LUALINE")
-; (print (vim.inspect colors.kreative))
-; (print (vim.inspect colors))
 
 (if (= vim.o.termguicolors true)
   (do

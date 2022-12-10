@@ -1,9 +1,7 @@
 local _2afile_2a = "fnl/lualine/themes/kreative.fnl"
 local ucolors = require("kreative.utils.highlight.utils")
 local colors = require("kreative.color")
-local main = require("kreative.main")
 local kreative = {}
-colors.update()
 if (vim.o.termguicolors == true) then
   kreative["normal"] = {a = {bg = colors.kreative.purple.base.color, fg = colors.kreative.fg.auto.color, gui = "bold"}, b = {bg = colors.kreative.blue.mix_shadow_bg_more.color, fg = colors.kreative.fg.auto.color}, c = {bg = colors.kreative.pink.base.color, fg = colors.kreative.fg.auto.color}}
   kreative["insert"] = {a = {bg = colors.kreative.blue.base.color, fg = colors.kreative.fg.auto.color, gui = "bold"}, b = {bg = colors.kreative.blue.mix_shadow_bg_more.color, fg = colors.kreative.fg.auto.color}, c = {bg = colors.kreative.blue.brighten.color, fg = colors.kreative.fg.auto.color}}
