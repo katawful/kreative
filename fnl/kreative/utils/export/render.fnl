@@ -18,7 +18,8 @@
           (set main.configs.background v)
           (color-table.update)
           (each [_ file (ipairs json.files)]
-            (write.file! file (json.encode (json.file-parse file)))))
+            (write.file! file (json.encode (json.file-parse file))))
+          (write.colors!))
         (set main.configs.background old-background)))
 
 (defn- color [args mutations] "Render color for a variation

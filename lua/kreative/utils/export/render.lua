@@ -29,6 +29,7 @@ local function file()
     for _2, file0 in ipairs(json.files) do
       write["file!"](file0, json.encode(json["file-parse"](file0)))
     end
+    write["colors!"]()
   end
   main.configs.background = old_background
   return nil
