@@ -9,6 +9,25 @@ Features:
 - Create prerendered color files on the fly, disabled by default
 - Create prerendered color files on demand
 
+# Installation
+Install with your plugin manager of choice.
+Example for vim-plug:
+```vim
+" Kreative
+Plug 'katawful/kreative', { 'tag': '1.0' }
+```
+
+Example with gruvbox colors, click for video demo:
+
+[![gruvbox-example](https://raw.githubusercontent.com/katawful/RandomAssets/main/gruvbox-kreative.png)](https://youtu.be/iXFlGD8TRTc)
+
+Current release: `1.0` - Dark Orange Tetrahedron
+
+It is recommended to stick with the current tagged release.
+`main` branch is mostly tested, but this is generally the latest release and breakages can occur outside of your tag.
+`dev` branch is untested and not for end use.
+Usage is and will always be considered broken.
+
 # Why Kreative and not Lush?
 [Lush](https://github.com/rktjmp/lush.nvim) is a very similar plugin for Neovim as well. It has a lot of features, such as live updates and a multitude of export options. It is certainly a plugin worth exploring, but the following is a list of reasons why I think one should use Lush and why one should not:
 
@@ -156,6 +175,25 @@ This will render all colors, from the main color file to your `stdpath('data')` 
 For Linux for example, this would be: `/home/user/.local/share/nvim/kat/kreative/json/`.
 
 You can autogenerate the color files upon changes to your colorscheme file with the option `render` inside your 'opts' table. This will only render upon a change or missing color files, leading to seamless usage.
+
+# Changelog
+Versioning: `x.ya x11-color shape`
+
+`x` releases are breaking changes. Something is expect to not work when updating.
+`y` are feature updates. New features are added, but compatibility with existing usage is kept.
+Pure bug fixes that affect functionality add a letter to the end of the tag, starting at 'a'.
+
+Changes to `x` demands a new adjective and cat-breed for the version name, a change to `y` only changes the adjective.
+This is the same versioning scheme as my colorscheme kat.nvim.
+
+##### 1.0 Dark Orange Tetrahedron
+
+- First major release
+- kat.nvim feature parity
+- Auto render to JSON support
+- Comment style support
+- Seamless reloading of colorscheme changes during a session
+- Massive speed improvements when using rendered files
 
 # License
 My code in this project is licensed under GPLv3. There are external projects not under the GPLv3 license distributed with this repository, but a different compatible license.
