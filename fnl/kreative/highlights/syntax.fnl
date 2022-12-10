@@ -4,12 +4,14 @@
                    run kreative.utils.highlight.run
                    main kreative.main}})
 
-(defn high-colors [] [{:group :Comment
-                       :fg colors.kreative.bg.meld.color
-                       :bg :SKIP
-                       :ctermfg 12
-                       :ctermbg :SKIP
-                       :italic true}
+(defn high-colors [] [(fn [] (let [color-tbl {:group :Comment
+                                              :fg colors.kreative.bg.meld.color
+                                              :bg :SKIP
+                                              :ctermfg 12
+                                              :ctermbg :SKIP}]
+                               (each [_ attr (ipairs main.configs.comment_style)]
+                                 (tset color-tbl attr true))
+                               color-tbl))
                       {:group :Constant
                        :fg colors.kreative.pink.base.color
                        :bg :SKIP
@@ -181,12 +183,14 @@
                        :ctermfg 13
                        :ctermbg :SKIP
                        :bold true}
-                      {:group :SpecialComment
-                       :fg colors.kreative.plum.mix_meld_bg.color
-                       :bg :SKIP
-                       :ctermfg 13
-                       :ctermbg :SKIP
-                       :italic true}
+                      (fn [] (let [color-tbl {:group :SpecialComment
+                                              :fg colors.kreative.plum.mix_meld_bg.color
+                                              :bg :SKIP
+                                              :ctermfg 13
+                                              :ctermbg :SKIP}]
+                               (each [_ attr (ipairs main.configs.comment_style)]
+                                 (tset color-tbl attr true))
+                               color-tbl))
                       {:group :Debug
                        :fg colors.kreative.plum.auto_mix_green.color
                        :bg :SKIP

@@ -75,6 +75,7 @@ local opts = {
                 "coc",
                 "cmp",
                 "fugitive",
+                "gitsigns",
         },
         filetypes = {
                 "vim",
@@ -111,6 +112,10 @@ These only accept hex colors, and all values must be placed. For the dark and li
 There are 2 required options for this table, `contrast` and `colors_name`. Contrast can be either `soft` or `hard`, the color name should be the same as your file name.
 
 The rest of the options are optional, and simply present the defaults. For `integrations`, 'bufferline' is also supported if one uses it.
+
+### `comment_style`
+This takes a sequential table of [attr-list](https://neovim.io/doc/user/syntax.html#%3Ahighlight) attributes to apply to comments.
+The only groups that Kreative uses are 'Comment' and 'SpecialComment', '@comment' links to 'Comment'.
 
 ### `render`
 When set to `true`, this will render your colors and highlight files to JSON upon a change to your colors table or if said rendering never happened.
