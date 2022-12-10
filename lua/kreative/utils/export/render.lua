@@ -35,6 +35,13 @@ local function file()
   return nil
 end
 _2amodule_2a["file"] = file
+local function file_2a()
+  for _1, file0 in ipairs(json.files) do
+    write["file!"](file0, json.encode(json["file-parse"](file0)))
+  end
+  return write["colors!"]()
+end
+_2amodule_2a["file*"] = file_2a
 local function color(args, mutations)
   main.configs.background = mutations[1]
   main.configs.contrast = mutations[2]

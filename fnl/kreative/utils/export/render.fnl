@@ -22,6 +22,11 @@
           (write.colors!))
         (set main.configs.background old-background)))
 
+(defn file* [] "Render to file for just current background"
+      (each [_ file (ipairs json.files)]
+        (write.file! file (json.encode (json.file-parse file))))
+      (write.colors!))
+
 (defn- color [args mutations] "Render color for a variation
 @args -- a seq table of arguments
          1. table of highlight tables
