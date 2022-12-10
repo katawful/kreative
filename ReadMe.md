@@ -2,13 +2,12 @@
 
 Kreative is a colorscheme backend that manages all of the complicated theming and color manipulation for you. All you need to provide is a set of colors, Kreative will do the rest.
 
-Currently, you can't prerender your colorscheme for a performance benefit. The implementation I used for [kat.nvim](https://github.com/katawful/kat.nvim), while powerful, is not easy to use. This will come at a future time. For the time being, you will only be able to use your new colorscheme with the dynamic rendering method. This is generally about 5 times slower, but on my desktop system is only 30ms. It shouldn't be extremely noticeable for the time being.
-
 Features:
-- light and dark themes created for you, switch with `vim.o.background`
+- Light and dark themes created for you, switch with `vim.o.background`
 - Soft and hard contrast choices to choose from
-- create files in `/color` to be able to load your colors using built in methods
-- create prerendered color files when you're done (available later)
+- Create files in `/color` to be able to load your colors using built in methods
+- Create prerendered color files on the fly, disabled by default
+- Create prerendered color files on demand
 
 # Why Kreative and not Lush?
 [Lush](https://github.com/rktjmp/lush.nvim) is a very similar plugin for Neovim as well. It has a lot of features, such as live updates and a multitude of export options. It is certainly a plugin worth exploring, but the following is a list of reasons why I think one should use Lush and why one should not:
@@ -43,6 +42,7 @@ I'll be honest, I mostly wrote this for me as I like changing up colorschemes a 
 | [Airline](https://github.com/vim-airline/vim-airline) | Use plugin settings: 'kreative' |
 | [Lualine](https://github.com/nvim-lualine/lualine.nvim) | Use plugin settings: 'kreative' |
 | [Fugitive](https://github.com/tpope/vim-fugitive) | 'fugitive' |
+| [gitsigns](https://github.com/lewis6991/gitsigns.nvim/) | 'gitsigns' |
 
 # Creating your colorscheme
 Creating your colorscheme is very simple, I will be using Lua for this example. Inside a valid `/color` directory, i.e. inside your Neovim config directory, create a file named after what you wish to call this. As to not overload anything, and to keep interfacing with Neovim as vanilla as possible, if you desire to have both hard and soft contrasts for the same set of colors, name your file something to reflect this. Going forward, this file name is now your colorscheme's name.
@@ -55,7 +55,7 @@ local colors = {
 	dark = "#282828",
 	red = "#cc241d",
 	green = "#98971a",
-        orange = "#d79921",
+  orange = "#d79921",
 	blue = "#458588",
 	purple = "#b16286",
 	pink = "#689d6a",
@@ -112,6 +112,10 @@ There are 2 required options for this table, `contrast` and `colors_name`. Contr
 
 The rest of the options are optional, and simply present the defaults. For `integrations`, 'bufferline' is also supported if one uses it.
 
+### `render`
+When set to `true`, this will render your colors and highlight files to JSON upon a change to your colors table or if said rendering never happened.
+See [Colors](#color-rendering) section for more details.
+
 ## Function Calls
 There are 2 important function calls needed. The first is `require("kreative.color")["init-colors"](colors)`. This initializes Kreative with the colors you have picked.
 The second, `require("kreative.main").init(opts)` starts the colorscheme itself. Both functions should be passed their respective tables.
@@ -120,10 +124,17 @@ The second, `require("kreative.main").init(opts)` starts the colorscheme itself.
 For plugins that need to be passed a custom colorscheme name, such as Lualine, use "kreative" as the string to use the colors from this theme.
 
 # Generation
+## Terminal
 Currently, you can only generate terminal themes for your desired terminal:
 ```vim
 :KreativeGenTermTheme terminal
 ```
+You can generate both light and dark colors for your theme by passing 'all' as the second argument:
+```vim
+:KreativeGenTermTheme terminal all
+```
+Completion is supported as well.
+
 The following are supported currently:
 | Terminal | Setting |
 |---|---|
@@ -133,6 +144,13 @@ The following are supported currently:
 | konsole | "konsole" |
 
 An appropriate file will be made at your current working directory using your background settings. Only a theme made through Kreative can generate a terminal theme, any other theme will present an error.
+
+## Color Rendering
+To render your colors to file on demand use the user function `KreativeRenderColor`.
+This will render all colors, from the main color file to your `stdpath('data')` path under `/kat/kreative/json/`.
+For Linux for example, this would be: `/home/user/.local/share/nvim/kat/kreative/json/`.
+
+You can autogenerate the color files upon changes to your colorscheme file with the option `render` inside your 'opts' table. This will only render upon a change or missing color files, leading to seamless usage.
 
 # License
 My code in this project is licensed under GPLv3. There are external projects not under the GPLv3 license distributed with this repository, but a different compatible license.

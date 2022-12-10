@@ -35,7 +35,7 @@ The colorscheme file itself does 3 things:
    3. Execute Kreative
 
 ------------------------------------------------------------------------------
-Section 1a: Colorsheme file                         *kreative-colorscheme-file*
+Section 1a: Colorscheme file                         *kreative-colorscheme-file*
 
 The file for Kreative should be placed into `colors/` as any other
 |:colorscheme| would. The file name should match the desired name you want for
@@ -75,36 +75,34 @@ and a `colors_name` option. The first is either 'soft' or 'hard', reflecting
 the contrast that your colorscheme will provide. The second is the name of
 your colorscheme, and should be the name of your colorscheme file.
 
-Optional Options *kreative-options-opt*
+Optional Options                                         *kreative-options-opt*
 
 The rest are the options that you can pick for Kreative:
 
 			For 'integrations' table
 		Filetype Name     |     Notes
-		treesitter        |     default  
-		lsp               |     default  
-		ts_rainbow        |     default  
-		indent_blankline  |     default  
-		startify          |     default  
-		coc               |     default  
-		cmp               |     default  
-		fugitive          |     default  
+		treesitter        |     default
+		lsp               |     default
+		ts_rainbow        |     default
+		indent_blankline  |     default
+		startify          |     default
+		coc               |     default
+		cmp               |     default
+		fugitive          |     default
 		bufferline        |     not default
 
 			For 'filetype' table
-		vim               |     default  
-		vimwiki           |     default  
-		markdown          |     default  
+		vim               |     default
+		vimwiki           |     default
+		markdown          |     default
 
 		  'comment_style' | table of |attr-list|
-		         'render' | boolean
+		         'render' | boolean, default false
 
                                                               *kreative-render*
-For 'render', this controls if Kreative uses its prerendered files or not.
-When this is set to true, Kreative will use functions to generate each
-colorscheme. It requires more start up time, but always works. Pre-rendered
-files are not supported atm, and setting 'render' to false will present an
-error
+For 'render', setting to true will render your colors and highlights to
+`stdpath('data')` as JSON files for faster startup. It will do this upon
+seeing changes to your colors table or if you don't have JSON files present.
 
 ------------------------------------------------------------------------------
 Section 1d: Executing Kreative                               *kreative-execute*
@@ -133,6 +131,12 @@ The supported terminals are:
 		'alacritty' | alacritty
 		'URxvt' | urxvt, rxvt-unicode
 		'konsole' | konsole
+
+You can pass `all` as the second argument to generate light and dark themes.
+
+                                                       *kreative-render-colors*
+To render colors on demand use the user command:
+	`:KreativeRenderColor`
 
 ==============================================================================
 Section 3: Example                                           *kreative-example*
