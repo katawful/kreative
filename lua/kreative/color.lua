@@ -422,11 +422,7 @@ local function output()
 end
 _2amodule_2a["output"] = output
 local function update()
-  kreative = read.colors(json.path)
-  do
-    local read_file = require("kreative.utils.json.read")
-    kreative = read_file.colors(json.path())
-  end
+  kreative = read.colors(json.path())
   if (a["empty?"](kreative) or (kreative == nil)) then
     kreative = output()
     if main.configs.render then
