@@ -589,7 +589,7 @@
 
 (defn update [] "Update colors table"
       (set kreative (read.colors (json.path)))
-      (if (or (a.empty? kreative) (= kreative nil))
+      (if (or (a.empty? kreative) (= kreative nil) (= main.configs.render false))
         (do
           (set kreative (output))
           (when main.configs.render (write.colors!))))
